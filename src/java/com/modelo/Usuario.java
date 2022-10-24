@@ -3,7 +3,7 @@ package com.modelo;
 /**
  * Clase: Usuario
  * Version: 1.0
- * @author gabriel
+ * @author: gabriel
  */
 
 public class Usuario {
