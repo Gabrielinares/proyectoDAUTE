@@ -10,14 +10,14 @@ public class Usuario {
     private int idUser;
     private String username;
     private String passw;
-    private boolean estado;
+    private int estado;
     private String pathFoto;
     
     public Usuario(){
         
     }
 
-    public Usuario(int idUser, String username, String passw, boolean estado, String pathFoto) {
+    public Usuario(int idUser, String username, String passw, int estado, String pathFoto) {
         this.idUser = idUser;
         this.username = username;
         this.passw = passw;
@@ -49,11 +49,11 @@ public class Usuario {
         this.passw = passw;
     }
 
-    public boolean isEstado() {
+    public int getEstado() {
         return estado;
     }
 
-    public void setEstado(boolean estado) {
+    public void setEstado(int estado) {
         this.estado = estado;
     }
 
@@ -64,6 +64,5 @@ public class Usuario {
     public void setPathFoto(String pathFoto) {
         this.pathFoto = pathFoto;
     }
-    
-    
+
 }
