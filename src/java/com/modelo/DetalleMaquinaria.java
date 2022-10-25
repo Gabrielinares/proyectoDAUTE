@@ -21,14 +21,12 @@ public class DetalleMaquinaria {
         
     }
 
-    public DetalleMaquinaria(int idDM, String fechaInicio, String fechaFin, int ProyId, int MaqId, String proyecto, String maquinaria) {
+    public DetalleMaquinaria(int idDM, String fechaInicio, String fechaFin, int ProyId, int MaqId) {
         this.idDM = idDM;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.ProyId = ProyId;
         this.MaqId = MaqId;
-        this.proyecto = proyecto;
-        this.maquinaria = maquinaria;
     }
 
     public int getIdDM() {
