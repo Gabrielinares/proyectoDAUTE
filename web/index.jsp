@@ -5,19 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page session="true" %>
 
-<%
-    HttpSession ses = request.getSession();
-    String usuario = "";
-    String pf = "";
-    if (ses.getAttribute("usuario") != null && ses.getAttribute("pathFoto") != null && ses != null) {
-        usuario = ses.getAttribute("usuario").toString();
-        pf = ses.getAttribute("pathFoto").toString();
-    }else{
-        response.sendRedirect("login.jsp");
-    }
-%>
+<%@include file="/template/session.jsp" %>
 
 <!DOCTYPE html>
 <!DOCTYPE html>
@@ -65,7 +54,7 @@
           <li class="breadcrumb-item active">Overview</li>
         </ol>
 
-        <h1>Sistema de proyectos - SISV11</h1>
+        <h1>Sistema de proyectos - SISV11 <%= ses.getAttribute("id") %> </h1>
         
       </div>
       <!-- /.container-fluid -->

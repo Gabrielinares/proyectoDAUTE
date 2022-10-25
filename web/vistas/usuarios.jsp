@@ -10,19 +10,9 @@
 <%@page import="java.util.List"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page session="true" %>
 
-<%
-    HttpSession ses = request.getSession();
-    String usuario = "";
-    String pf = "";
-    if (ses.getAttribute("usuario") != null && ses.getAttribute("pathFoto") != null && ses != null) {
-        usuario = ses.getAttribute("usuario").toString();
-        pf = ses.getAttribute("pathFoto").toString();
-    } else {
-        response.sendRedirect("login.jsp");
-    }
-%>
+<%@include file="/template/session.jsp" %>
+
 <!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,13 +28,16 @@
         <title>Gesti&oacute;n de usuarios</title>
 
         <!-- Custom fonts for this template-->
-        <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link href="${pageContext.servletContext.contextPath}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
         <!-- Page level plugin CSS-->
-        <link href="../vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+        <link href="${pageContext.servletContext.contextPath}/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
         <!-- Custom styles for this template-->
-        <link href="../css/sb-admin.css" rel="stylesheet">
+        <link href="${pageContext.servletContext.contextPath}/css/sb-admin.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.38/sweetalert2.min.css" />
+
 
     </head>
 
@@ -166,7 +159,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="${pageContext.servletContext.contextPath}/UsuarioServlet" method="POST" enctype="multipart/form-data" role="form">
+                        <form action="${pageContext.servletContext.contextPath}/UsuarioServlet" method="post" enctype="multipart/form-data" id="form">
                             <div class="row">
                                 <div class="col-6">
                                     <label>Codigo</label>
@@ -230,7 +223,26 @@
         <script src="${pageContext.servletContext.contextPath}/js/demo/datatables-demo.js"></script>
         <script src="${pageContext.servletContext.contextPath}/js/demo/chart-area-demo.js"></script>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.38/sweetalert2.all.min.js"></script>
+
         <script src="${pageContext.servletContext.contextPath}/js/usuarios.js"></script>
+        <%
+            if (request.getAttribute("message") != null) {
+        %>
+        <script>
+            $(document).ready(function () {
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: '<%= request.getAttribute("message")%>',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+            });
+        </script>
+        <%
+            }
+        %>
     </body>
 
 </html>
