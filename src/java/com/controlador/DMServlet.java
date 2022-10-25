@@ -4,24 +4,20 @@
  */
 package com.controlador;
 
-import com.dao.UsuarioDAO;
-import com.modelo.Usuario;
+import com.dao.DetalleMaquinariaDAO;
+import com.modelo.DetalleMaquinaria;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 /**
  *
  * @author gabriel
  */
-@MultipartConfig //Linea necesaria para procesar forms con imagenes
-public class UsuarioServlet extends HttpServlet {
+public class DMServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,38 +33,36 @@ public class UsuarioServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
             int codigo = Integer.parseInt(request.getParameter("txtCodigo"));
-            String user = request.getParameter("txtUser");
-            String contra = request.getParameter("txtPass");
-            int estado = Integer.parseInt(request.getParameter("txtEstado"));
-            Part part = request.getPart("foto");
-            InputStream inputStream = part.getInputStream();
-
+            String fechaI = request.getParameter("txtFechaI");
+            String fechaF = request.getParameter("txtFechaF");
+            int ProyId = Integer.parseInt(request.getParameter("txtProy"));
+            int MaqId = Integer.parseInt(request.getParameter("txtMaq"));
+            
             int res = 0;
             String msj = "";
             
-            UsuarioDAO udao = new UsuarioDAO();
-            Usuario u = new Usuario(codigo, user, contra, estado, inputStream);
+            DetalleMaquinariaDAO dmdao = new DetalleMaquinariaDAO();
+            DetalleMaquinaria dm = new DetalleMaquinaria(codigo, fechaI, fechaF, ProyId, MaqId);
             
             if(request.getParameter("btnGuardar") != null){
-                res = udao.agregarUsuario(u);
+                res = dmdao.agregarDM(dm);
                 if(res != 0){
                     msj = "Registro agregado";
                 }
             } else if(request.getParameter("btnEditar") != null){
-                res = udao.modificarUsuario(u);
+                res = dmdao.modificarDM(dm);
                 if(res != 0){
                     msj = "Registro editado";
                 }
             } else if(request.getParameter("btnEliminar") != null){
-                res = udao.eliminarUsuario(u);
+                res = dmdao.eliminarDM(dm);
                 if(res != 0){
                     msj = "Registro eliminado";
                 }
             }
             request.setAttribute("message", msj);
-            request.getRequestDispatcher("/vistas/usuarios.jsp").forward(request, response);
+            request.getRequestDispatcher("/vistas/detallemaquinaria.jsp").forward(request, response);
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
         }

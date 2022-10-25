@@ -2,11 +2,15 @@ package com.dao;
 
 import com.conexion.Conexion;
 import com.modelo.Usuario;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -30,7 +34,7 @@ public class UsuarioDAO extends Conexion {
                 u.setUsername(rs.getString(2));
                 u.setPassw(rs.getString(3));
                 u.setEstado(rs.getInt(4));
-                u.setPathFoto(rs.getString(5));
+                u.setPathFoto(rs.getBinaryStream(5));
                 lista.add(u);
             }
         } catch (SQLException e) {
@@ -50,7 +54,7 @@ public class UsuarioDAO extends Conexion {
             ps.setString(1, us.getUsername());
             ps.setString(2, us.getPassw());
             ps.setInt(3, us.getEstado());
-            ps.setString(4, us.getPathFoto());
+            ps.setBlob(4, us.getPathFoto());
 
             res = ps.executeUpdate();
         } catch (SQLException e) {
@@ -70,7 +74,7 @@ public class UsuarioDAO extends Conexion {
             ps.setString(1, us.getUsername());
             ps.setString(2, us.getPassw());
             ps.setInt(3, us.getEstado());
-            ps.setString(4, us.getPathFoto());
+            ps.setBlob(4, us.getPathFoto());
             ps.setInt(5, us.getIdUser());
 
             res = ps.executeUpdate();
@@ -96,7 +100,7 @@ public class UsuarioDAO extends Conexion {
                 u.setUsername(rs.getString(2));
                 u.setPassw(rs.getString(3));
                 u.setEstado(rs.getInt(4));
-                u.setPathFoto(rs.getString(5));
+                u.setPathFoto(rs.getBinaryStream(5));
                 
                 lista.add(u);
             }
@@ -123,5 +127,36 @@ public class UsuarioDAO extends Conexion {
             this.desconectar();
         }
         return res;
+    }
+    
+    public void mostrarImg(int idUser, HttpServletResponse res){
+        String sql = "SELECT pathFoto FROM usuarios WHERE idUser = ?";
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        BufferedInputStream bufferedInputStream = null;
+        BufferedOutputStream bufferedOutputStream = null;
+        res.setContentType("image/*");
+        try {
+            outputStream = res.getOutputStream();
+            this.conectar();
+            PreparedStatement ps = this.getCon().prepareStatement(sql);
+            ps.setInt(1, idUser);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+                inputStream = rs.getBinaryStream(1);
+            }
+            bufferedInputStream = new BufferedInputStream(inputStream);
+            bufferedOutputStream = new BufferedOutputStream(outputStream);
+            
+            int i = 0;
+            while((i = bufferedInputStream.read()) != -1 ){
+                bufferedOutputStream.write(i);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            this.desconectar();
+        }
     }
 }

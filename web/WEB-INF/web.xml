@@ -5,24 +5,40 @@
         <servlet-class>com.controlador.LoginServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ClienteServlet</servlet-name>
-        <servlet-class>com.controlador.UsuarioServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>MaqServlet</servlet-name>
         <servlet-class>com.controlador.MaqServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DMServlet</servlet-name>
+        <servlet-class>com.controlador.DMServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>fotoPerfil</servlet-name>
+        <servlet-class>com.controlador.fotoPerfil</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UsuarioServlet</servlet-name>
+        <servlet-class>com.controlador.UsuarioServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ClienteServlet</servlet-name>
-        <url-pattern>/ClienteServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>MaqServlet</servlet-name>
         <url-pattern>/MaqServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DMServlet</servlet-name>
+        <url-pattern>/DMServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>fotoPerfil</servlet-name>
+        <url-pattern>/fotoPerfil</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UsuarioServlet</servlet-name>
+        <url-pattern>/UsuarioServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

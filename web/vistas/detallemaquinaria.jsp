@@ -1,13 +1,16 @@
 <%-- 
     Document   : detallemaquinaria
-    Created on : 24 oct. 2022, 18:24:23
+    Created on : 25 oct. 2022, 09:50:22
     Author     : gabriel
 --%>
 
-<%@page import="com.modelo.Maquinaria"%>
 <%@page import="com.dao.MaquinariaDAO"%>
+<%@page import="com.modelo.Maquinaria"%>
+<%@page import="com.dao.ProyectoDAO"%>
+<%@page import="com.modelo.Proyecto"%>
 <%@page import="com.modelo.DetalleMaquinaria"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="com.dao.DetalleMaquinariaDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@include file="/template/session.jsp" %>
@@ -24,7 +27,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Gesti&oacute;n de maquinaria</title>
+        <title>Gesti&oacute;n de maquinaria asignada</title>
 
         <!-- Custom fonts for this template-->
         <link href="${pageContext.servletContext.contextPath}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -42,6 +45,8 @@
     <body id="page-top">
 
         <%
+            DetalleMaquinariaDAO dmdao = new DetalleMaquinariaDAO();
+            ProyectoDAO pdao = new ProyectoDAO();
             MaquinariaDAO mdao = new MaquinariaDAO();
         %>
 
@@ -59,14 +64,14 @@
                     <!-- Breadcrumbs-->
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="#">Maquinaria</a>
+                            <a href="#">Maquinaria asignada</a>
                         </li>
                         <li class="breadcrumb-item active">Overview</li>
                     </ol>
 
                     <div class="row">
                         <div class="col-lg-8">
-                            <h1>Gesti&oacute;n de maquinaria</h1>
+                            <h1>Gesti&oacute;n de maquinaria asignada</h1>
                         </div>
                         <div class="col-lg-4">
                             <button type="button" class="btn btn-success float-right btnAdd" data-toggle="modal" data-target="#exampleModal">Agregar</button>
@@ -87,35 +92,40 @@
                                     <thead>
                                         <tr>
                                             <th>C&oacute;digo</th>
-                                            <th>Nombre</th>
-                                            <th>Descripci&oacute;n</th>
-                                            <th>Cantidad</th>
+                                            <th>Fecha inicio</th>
+                                            <th>Fecha final</th>
+                                            <th>Proyecto</th>
+                                            <th>Maquinaria</th>
                                             <th>Acciones</th>
-
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>C&oacute;digo</th>
-                                            <th>Nombre</th>
-                                            <th>Descripci&oacute;n</th>
-                                            <th>Cantidad</th>
+                                            <th>Fecha inicio</th>
+                                            <th>Fecha final</th>
+                                            <th>Proyecto</th>
+                                            <th>Maquinaria</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <%
-                                            ArrayList<Maquinaria> lista = mdao.mostraMaquinarias();
+                                            ArrayList<DetalleMaquinaria> lista = dmdao.mostrarDM();
 
-                                            String estado = "";
 
-                                            for (Maquinaria elem : lista) {
+                                            for (DetalleMaquinaria elem : lista) {
                                         %>
                                         <tr>
-                                            <td class="codigo"><%= elem.getIdMaquinaria()%></td>
-                                            <td class="nombre"><%= elem.getNombreMaquinaria()%></td>
-                                            <td class="desc"><%= elem.getDesc()%></td>
-                                            <td class="cant"><%= elem.getCant()%></td>
+                                            <td class="codigo"><%= elem.getIdDM()%></td>
+                                            <td class="fechaI"><%= elem.getFechaInicio()%></td>
+                                            <td class="fechaF"><%= elem.getFechaFin()%></td>
+                                            <td hidden class="proyId"><%= elem.getProyId()%></td>
+                                            <td class="proy"><%= elem.getProyecto()%></td>
+                                            <td hidden class="maqId"><%= elem.getMaqId()%></td>
+                                            <td  class="maquinaria"><%= elem.getMaquinaria()%></td>
+
+
                                             <td>
                                                 <button type="button" class="btn btn-dark btnEditar" data-toggle="modal" data-target="#exampleModal">Editar</button>
                                                 <button type="button" class="btn btn-danger btnEliminar" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
@@ -151,25 +161,55 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="${pageContext.servletContext.contextPath}/MaqServlet" method="POST" id="form">
+                        <form action="${pageContext.servletContext.contextPath}/DMServlet" method="POST" id="form">
                             <div class="row">
                                 <div class="col-6">
                                     <label>Codigo</label>
                                     <input type="text" name="txtCodigo" class="form-control" id="txtCodigo" value="0" readonly="true">
                                 </div>
                                 <div class="col-6">
-                                    <label>Nombre</label>
-                                    <input type="text" name="txtNombre" class="form-control" id="txtNombre">
+                                    <label>Fecha inicio</label>
+                                    <input type="date" name="txtFechaI" class="form-control" id="txtFechaI">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <label>Descripci&oacute;n</label>
-                                    <input type="text" name="txtDesc" class="form-control" id="txtDesc">
+                                    <label>Fecha final</label>
+                                    <input type="date" name="txtFechaF" class="form-control" id="txtFechaF">
                                 </div>
                                 <div class="col-6">
-                                    <label>Cantidad</label><br>
-                                    <input type="number" name="txtCant" class="form-control" id="txtCant">
+                                    <label>Proyecto</label><br>
+                                    <select name="txtProy" id="txtProy" class="form-select">
+                                        <option value="0">Seleccionar proyecto...</option>
+                                        <%
+                                            ArrayList<Proyecto> lP = pdao.mostrarProyectos();
+                                            for (Proyecto elem : lP) {
+
+
+                                        %>
+                                        <option value="<%= elem.getIdProy()%>"><%= elem.getNombreProy()%></option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>Maquinaria</label><br>
+                                    <select name="txtMaq" id="txtMaq" class="form-select">
+                                        <option value="0">Seleccionar maquinaria...</option>
+                                        <%
+                                            ArrayList<Maquinaria> lM = mdao.mostraMaquinarias();
+                                            for (Maquinaria elem : lM) {
+
+
+                                        %>
+                                        <option value="<%= elem.getIdMaquinaria()%>"><%= elem.getNombreMaquinaria()%></option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>
                                 </div>
                             </div>
                             <br>
@@ -224,7 +264,7 @@
             }
         %>
 
-        <script src="${pageContext.servletContext.contextPath}/js/maquinaria.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/js/detalleMaq.js"></script>
     </body>
 
 </html>

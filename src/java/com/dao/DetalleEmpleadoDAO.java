@@ -62,7 +62,7 @@ public class DetalleEmpleadoDAO extends Conexion {
         ArrayList<DetalleEmpleado> lista = new ArrayList<>();
         try {
             this.conectar();
-            String sql = "SELECT de.idDetalleEmpleado ,de.fechaInicio, de.fechaFinal, p.nombreProyecto as proyecto, e.nombreEmpleado as empleado FROM detalleempleado as de INNER JOIN proyecto as p ON (p.idProyecto = de.proyectoId) INNER JOIN empleado as e ON (e.dui = de.empleadoDUI); ";
+            String sql = "SELECT de.idDetalleEmpleado ,de.fechaInicio, de.fechaFinal, p.nombreProyecto as proyecto, e.nombreEmpleado as empleado, de.proyectoId, de.empleadoDUI FROM detalleempleado as de INNER JOIN proyecto as p ON (p.idProyecto = de.proyectoId) INNER JOIN empleado as e ON (e.dui = de.empleadoDUI); ";
             PreparedStatement ps = this.getCon().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
@@ -73,6 +73,8 @@ public class DetalleEmpleadoDAO extends Conexion {
                 de.setFechaFin(rs.getString(3));
                 de.setProyecto(rs.getString(4));
                 de.setEmpleado(rs.getString(5));
+                de.setProyId(rs.getInt(6));
+                de.setEmpDui(rs.getInt(7));
 
                 lista.add(de);
             }
@@ -83,15 +85,15 @@ public class DetalleEmpleadoDAO extends Conexion {
         }
         return lista;
     }
-    
-    public int eliminarDE(DetalleEmpleado de){
+
+    public int eliminarDE(DetalleEmpleado de) {
         int res = 0;
         try {
             this.conectar();
             String sql = "DELETE FROM detalleempleado WHERE idDetalleEmpleado = ?";
             PreparedStatement ps = this.getCon().prepareStatement(sql);
             ps.setInt(1, de.getIdDE());
-            
+
             res = ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
