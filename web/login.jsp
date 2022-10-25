@@ -4,6 +4,7 @@
     Author     : gabriel
 --%>
 
+<%@page import="java.io.InputStream"%>
 <%@page import="com.modelo.Usuario"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -73,12 +74,15 @@
             if (request.getAttribute("datos") != null) {
                 lista = (ArrayList<Usuario>) request.getAttribute("datos");
                 String nameUser = "";
-                String pathFoto = "";
+                InputStream pathFoto = null;
+                int idUser = 0;
                 for (Usuario elem : lista) {
+                    idUser = elem.getIdUser();
                     nameUser = elem.getUsername();
                     pathFoto = elem.getPathFoto();
                 }
                 //crear variables de sesion
+                session.setAttribute("id", idUser);
                 sesion.setAttribute("usuario", nameUser);
                 sesion.setAttribute("pathFoto", pathFoto);
                 sesion.setAttribute("logged_in", "activa");

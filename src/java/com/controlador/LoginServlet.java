@@ -39,7 +39,9 @@ public class LoginServlet extends HttpServlet {
             if(request.getParameter("btnLogin") != null){
                 String usuario = request.getParameter("txtUser");
                 String contra = request.getParameter("txtPass");
+                
                 datos = obj.iniciarSesion(usuario, contra);
+                
                 
                if(!datos.isEmpty()){
                    request.setAttribute("datos", datos);

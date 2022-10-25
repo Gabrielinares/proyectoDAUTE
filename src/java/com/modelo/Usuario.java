@@ -2,6 +2,7 @@ package com.modelo;
 
 import java.io.InputStream;
 
+
 /**
  * Clase: Usuario
  * Version: 1.0
@@ -13,13 +14,13 @@ public class Usuario {
     private String username;
     private String passw;
     private int estado;
-    private String pathFoto;
+    private InputStream pathFoto;
     
     public Usuario(){
         
     }
 
-    public Usuario(int idUser, String username, String passw, int estado, String pathFoto) {
+    public Usuario(int idUser, String username, String passw, int estado, InputStream pathFoto) {
         this.idUser = idUser;
         this.username = username;
         this.passw = passw;
@@ -59,11 +60,11 @@ public class Usuario {
         this.estado = estado;
     }
 
-    public String getPathFoto() {
+    public InputStream getPathFoto() {
         return pathFoto;
     }
 
-    public void setPathFoto(String pathFoto) {
+    public void setPathFoto(InputStream pathFoto) {
         this.pathFoto = pathFoto;
     }
 

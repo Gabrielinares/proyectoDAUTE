@@ -12,19 +12,9 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.dao.DetalleMaquinariaDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page session="true" %>
 
-<%
-    HttpSession ses = request.getSession();
-    String usuario = "";
-    String pf = "";
-    if (ses.getAttribute("usuario") != null && ses.getAttribute("pathFoto") != null && ses != null) {
-        usuario = ses.getAttribute("usuario").toString();
-        pf = ses.getAttribute("pathFoto").toString();
-    } else {
-        response.sendRedirect("login.jsp");
-    }
-%>
+<%@include file="/template/session.jsp" %>
+
 <!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
@@ -106,7 +96,7 @@
                                             <th>Fecha final</th>
                                             <th>Proyecto</th>
                                             <th>Maquinaria</th>
-                                            <<th>Acciones</th>
+                                            <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -116,14 +106,13 @@
                                             <th>Fecha final</th>
                                             <th>Proyecto</th>
                                             <th>Maquinaria</th>
-                                            <<th>Acciones</th>
+                                            <th>Acciones</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <%
                                             ArrayList<DetalleMaquinaria> lista = dmdao.mostrarDM();
 
-                                            String estado = "";
 
                                             for (DetalleMaquinaria elem : lista) {
                                         %>
@@ -172,7 +161,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="${pageContext.servletContext.contextPath}/DMServlet" method="POST" role="form">
+                        <form action="${pageContext.servletContext.contextPath}/DMServlet" method="POST" id="form">
                             <div class="row">
                                 <div class="col-6">
                                     <label>Codigo</label>
@@ -191,7 +180,7 @@
                                 <div class="col-6">
                                     <label>Proyecto</label><br>
                                     <select name="txtProy" id="txtProy" class="form-select">
-                                        <option value="0">Seleccionar Categoria...</option>
+                                        <option value="0">Seleccionar proyecto...</option>
                                         <%
                                             ArrayList<Proyecto> lP = pdao.mostrarProyectos();
                                             for (Proyecto elem : lP) {
@@ -209,7 +198,7 @@
                                 <div class="col-6">
                                     <label>Maquinaria</label><br>
                                     <select name="txtMaq" id="txtMaq" class="form-select">
-                                        <option value="0">Seleccionar Categoria...</option>
+                                        <option value="0">Seleccionar maquinaria...</option>
                                         <%
                                             ArrayList<Maquinaria> lM = mdao.mostraMaquinarias();
                                             for (Maquinaria elem : lM) {
@@ -275,7 +264,7 @@
             }
         %>
 
-        <script src="${pageContext.servletContext.contextPath}/js/maquinaria.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/js/detalleMaq.js"></script>
     </body>
 
 </html>
