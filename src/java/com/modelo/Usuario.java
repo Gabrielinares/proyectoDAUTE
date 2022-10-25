@@ -1,5 +1,7 @@
 package com.modelo;
 
+import java.io.InputStream;
+
 /**
  * Clase: Usuario
  * Version: 1.0
