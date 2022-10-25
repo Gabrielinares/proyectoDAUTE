@@ -6,7 +6,7 @@
     </servlet>
     <servlet>
         <servlet-name>ClienteServlet</servlet-name>
-        <servlet-class>com.controlador.ClienteServlet</servlet-class>
+        <servlet-class>com.controlador.UsuarioServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>MaqServlet</servlet-name>

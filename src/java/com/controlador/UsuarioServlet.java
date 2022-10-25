@@ -20,7 +20,7 @@ import javax.servlet.http.Part;
  * @author gabriel
  */
 @MultipartConfig
-public class ClienteServlet extends HttpServlet {
+public class UsuarioServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

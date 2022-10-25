@@ -166,7 +166,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="${pageContext.servletContext.contextPath}/ClienteServlet" method="POST" enctype="multipart/form-data" role="form">
+                        <form action="${pageContext.servletContext.contextPath}/UsuarioServlet" method="POST" enctype="multipart/form-data" role="form">
                             <div class="row">
                                 <div class="col-6">
                                     <label>Codigo</label>
