@@ -46,12 +46,12 @@
 
 <body id="page-top">
 
-    <%@include file="template/navbar.jsp" %>
+    <%@include file="/template/navbar.jsp" %>
 
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <%@include file="template/sidebar.jsp" %>
+    <%@include file="/template/sidebar.jsp" %>
 
     <div id="content-wrapper">
 
@@ -71,7 +71,7 @@
       <!-- /.container-fluid -->
 
       <!-- Sticky Footer -->
-      <%@include file="template/footer.jsp" %>
+      <%@include file="/template/footer.jsp" %>
 
     </div>
     <!-- /.content-wrapper -->
