@@ -14,7 +14,8 @@
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <h6 class="dropdown-header">Gestionar:</h6>
             <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/usuarios.jsp">Usuarios</a>
-            <a class="dropdown-item" href="#">Maquinaria</a>
+            <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/maquinaria.jsp">Maquinaria</a>
+            <a class="dropdown-item" href="#">Maquinaria asignada</a>
             <a class="dropdown-item" href="#">Empleado</a>
             <a class="dropdown-item" href="#">Proyectos</a>
             <a class="dropdown-item" href="#">Departamentos</a>
