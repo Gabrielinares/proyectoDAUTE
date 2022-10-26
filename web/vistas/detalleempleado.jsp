@@ -1,15 +1,16 @@
 <%-- 
-    Document   : usuarios
-    Created on : 24 oct. 2022, 16:31:33
+    Document   : detallemaquinaria
+    Created on : 25 oct. 2022, 09:50:22
     Author     : gabriel
 --%>
 
 <%@page import="com.dao.EmpleadoDAO"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="com.modelo.Empleado"%>
-<%@page import="com.dao.EmpleadoDAO"%>
-<%@page import="java.util.List"%>
-
+<%@page import="com.dao.ProyectoDAO"%>
+<%@page import="com.modelo.Proyecto"%>
+<%@page import="com.modelo.DetalleEmpleado"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.dao.DetalleEmpleadoDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@include file="/template/session.jsp" %>
@@ -26,7 +27,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Gesti&oacute;n de usuarios</title>
+        <title>Gesti&oacute;n de Detalle de Empleados</title>
 
         <!-- Custom fonts for this template-->
         <link href="${pageContext.servletContext.contextPath}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -39,13 +40,14 @@
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.38/sweetalert2.min.css" />
 
-
     </head>
 
     <body id="page-top">
 
         <%
-            EmpleadoDAO edao = new EmpleadoDAO();
+            DetalleEmpleadoDAO dmdao = new DetalleEmpleadoDAO();
+            ProyectoDAO pdao = new ProyectoDAO();
+            EmpleadoDAO mdao = new EmpleadoDAO();
         %>
 
         <%@include file="../template/navbar.jsp" %>
@@ -62,14 +64,14 @@
                     <!-- Breadcrumbs-->
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="#">Empleados</a>
+                            <a href="#">Detalle Empleados</a>
                         </li>
                         <li class="breadcrumb-item active">Overview</li>
                     </ol>
 
                     <div class="row">
                         <div class="col-lg-8">
-                            <h1>Gesti&oacute;n de Empleados</h1>
+                            <h1>Gesti&oacute;n de Detalle de Empleados</h1>
                         </div>
                         <div class="col-lg-4">
                             <button type="button" class="btn btn-success float-right btnAdd" data-toggle="modal" data-target="#exampleModal">Agregar</button>
@@ -89,49 +91,41 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                            <th>Id Empleado</th>
+                                            <th>Fecha inicio</th>
+                                            <th>Fecha final</th>
+                                            <th>Proyecto</th>
                                             <th>DUI</th>
-                                            <th>Nombre</th>
-                                            <th>Apellido</th>
-                                            <th>Disponible</th>
-                                            <th>Salario</th>
-                                            <th>Telefono</th>
                                             <th>Acciones</th>
-
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                            <th>Id Empleado</th>
+                                            <th>Fecha inicio</th>
+                                            <th>Fecha final</th>
+                                            <th>Proyecto</th>
                                             <th>DUI</th>
-                                            <th>Nombre</th>
-                                            <th>Apellido</th>
-                                            <th>Disponible</th>
-                                            <th>Salario</th>
-                                            <th>Telefono</th>
                                             <th>Acciones</th>
-
                                         </tr>
                                     </tfoot>
-                                    <tbody id="construirTabla">
+                                    <tbody>
                                         <%
-                                            ArrayList<Empleado> lista = edao.mostrarEmpleados();
+                                            ArrayList<DetalleEmpleado> lista = dmdao.mostrarDE();
 
-                                            String estado = "";
 
-                                            for (Empleado elem : lista) {
-                                                if (elem.getDui()== 1) {
-                                                    estado = "Activo";
-                                                } else if (elem.getDui()!= 1) {
-                                                    estado = "Inactivo";
-                                                }
-
+                                            for (DetalleEmpleado elem : lista) {
                                         %>
                                         <tr>
-                                            <td class="dui"><%= elem.getDui()%></td>
-                                            <td class="NombreEmp"><%= elem.getNombreEmp()%></td>
-                                            <td class="ApellidoEmp"><%= elem.getApellidoEmp()%></td>
-                                            <td class="Disp"><%= elem.getDisp()%></td>
-                                            <td class="Salario"><%= elem.getSalario()%></td>
-                                            <td class="Telefono"><%= elem.getTelefono()%></td>
+                                            <td class="id"><%= elem.getIdDE()%></td>
+                                            <td class="fechaI"><%= elem.getFechaInicio()%></td>
+                                            <td class="fechaF"><%= elem.getFechaFin()%></td>
+                                            <td hidden class="proyold"><%= elem.getProyId()%></td>
+                                            <td class="proy"><%= elem.getProyecto()%></td>
+                                            <td hidden class="empleadoDui"><%= elem.getEmpDui()%></td>
+                                            <td  class="DUI"><%= elem.getEmpDui()%></td>
+
+
                                             <td>
                                                 <button type="button" class="btn btn-dark btnEditar" data-toggle="modal" data-target="#exampleModal">Editar</button>
                                                 <button type="button" class="btn btn-danger btnEliminar" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
@@ -163,39 +157,59 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Datos Cliente</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Datos maquinaria</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="${pageContext.servletContext.contextPath}/UsuarioServlet" method="post" enctype="multipart/form-data" id="form">
+                        <form action="${pageContext.servletContext.contextPath}/DMServlet" method="POST" id="form">
                             <div class="row">
                                 <div class="col-6">
                                     <label>Codigo</label>
                                     <input type="text" name="txtCodigo" class="form-control" id="txtCodigo" value="0" readonly="true">
                                 </div>
                                 <div class="col-6">
-                                    <label>Usuario</label>
-                                    <input type="text" name="txtUser" class="form-control" id="txtUser">
+                                    <label>Fecha inicio</label>
+                                    <input type="date" name="txtFechaI" class="form-control" id="txtFechaI">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <label>Contrase&ntilde;a</label>
-                                    <input type="text" name="txtPass" class="form-control" id="txtPass">
+                                    <label>Fecha final</label>
+                                    <input type="date" name="txtFechaF" class="form-control" id="txtFechaF">
                                 </div>
                                 <div class="col-6">
-                                    <label>Categoría</label><br>
-                                    <select name="txtEstado" id="txtEstado" class="form-select">
-                                        <option value="3">Seleccionar...</option>
-                                        <option value="0">Inactivo</option>
-                                        <option value="1">Activo</option>
+                                    <label>Proyecto</label><br>
+                                    <select name="txtProy" id="txtProy" class="form-select">
+                                        <option value="0">Seleccionar proyecto...</option>
+                                        <%
+                                            ArrayList<Proyecto> lP = pdao.mostrarProyectos();
+                                            for (Proyecto elem : lP) {
+
+
+                                        %>
+                                        <option value="<%= elem.getIdProy()%>"><%= elem.getNombreProy()%></option>
+                                        <%
+                                            }
+                                        %>
                                     </select>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <label>Foto</label>
-                                    <input type="file" name="foto">
+                                    <label>Maquinaria</label><br>
+                                    <select name="txtMaq" id="txtMaq" class="form-select">
+                                        <option value="0">Seleccionar maquinaria...</option>
+                                        <%
+                                            ArrayList<Empleado> lM = mdao.mostrarEmpleados();
+                                            for (Empleado elem : lM) {
+
+
+                                        %>
+                                        <option value="<%= elem.getNombreEmp()%>"><%= elem.getNombreEmp()%></option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>
                                 </div>
                             </div>
                             <br>
@@ -230,10 +244,8 @@
         <!-- Demo scripts for this page-->
         <script src="${pageContext.servletContext.contextPath}/js/demo/datatables-demo.js"></script>
         <script src="${pageContext.servletContext.contextPath}/js/demo/chart-area-demo.js"></script>
-
         <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.38/sweetalert2.all.min.js"></script>
 
-        <script src="${pageContext.servletContext.contextPath}/js/usuarios.js"></script>
         <%
             if (request.getAttribute("message") != null) {
         %>
@@ -251,6 +263,8 @@
         <%
             }
         %>
+
+        <script src="${pageContext.servletContext.contextPath}/js/detalleMaq.js"></script>
     </body>
 
 </html>
