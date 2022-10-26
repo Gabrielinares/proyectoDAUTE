@@ -4,11 +4,12 @@
  */
 package com.controlador;
 
-import com.dao.MunicipioDAO;
-import com.modelo.Municipio;
+import com.dao.EmpleadoDAO;
+import com.modelo.Empleado;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author gabriel
  */
-public class MunServlet extends HttpServlet {
+@MultipartConfig //Linea necesaria para procesar forms con imagenes
+public class EmpleadoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,38 +35,40 @@ public class MunServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            int codigo = Integer.parseInt(request.getParameter("txtCodigo"));
-            String nombre = request.getParameter("txtNombre");
-            int deptoId = Integer.parseInt(request.getParameter("txtDepto"));
             
+            
+            int dui = Integer.parseInt(request.getParameter("txtDui"));
+            String nombre = request.getParameter("txtNom");
+            String apellido = request.getParameter("txtApe");
+            double salario = Double.parseDouble(request.getParameter("txtSal"));
+            String telefono = request.getParameter("txtTel");
+            int disp = Integer.parseInt(request.getParameter("txtDisp"));
             int res = 0;
             String msj = "";
             
-            MunicipioDAO mdao = new MunicipioDAO();
-            Municipio m = new Municipio(codigo, nombre, deptoId);
+            EmpleadoDAO edao = new EmpleadoDAO();
+            Empleado e = new Empleado(dui, nombre, apellido, telefono, salario, disp);
             
             if(request.getParameter("btnGuardar") != null){
-                res = mdao.agregarMun(m);
-                if (res != 0){
+                res = edao.agregarEmpleado(e);
+                if(res != 0){
                     msj = "Registro agregado";
                 }
             } else if(request.getParameter("btnEditar") != null){
-                res = mdao.modificarMun(m);
-                if (res != 0){
-                    msj = "Registro modificado";
+                res = edao.modificarEmpleado(e);
+                if(res != 0){
+                    msj = "Registro editado";
                 }
             } else if(request.getParameter("btnEliminar") != null){
-                res = mdao.eliminarMun(m);
-                if (res != 0){
+                res = edao.eliminarEmpleado(e);
+                if(res != 0){
                     msj = "Registro eliminado";
                 }
             }
-            
             request.setAttribute("message", msj);
-            request.getRequestDispatcher("/vistas/municipio.jsp").forward(request, response);
-            
-        } catch (Exception e){
-            System.out.println("Error: " + e.getMessage());
+            request.getRequestDispatcher("/vistas/empleado.jsp").forward(request, response);
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
         }
     }
 

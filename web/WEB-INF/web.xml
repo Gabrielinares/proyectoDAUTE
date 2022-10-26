@@ -21,6 +21,14 @@
         <servlet-class>com.controlador.UsuarioServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>EmpleadoServlet</servlet-name>
+        <servlet-class>com.controlador.EmpleadoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DEServlet</servlet-name>
+        <servlet-class>com.controlador.DEServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>MunServlet</servlet-name>
         <servlet-class>com.controlador.MunServlet</servlet-class>
     </servlet>
@@ -43,6 +51,14 @@
     <servlet-mapping>
         <servlet-name>UsuarioServlet</servlet-name>
         <url-pattern>/UsuarioServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmpleadoServlet</servlet-name>
+        <url-pattern>/EmpleadoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DEServlet</servlet-name>
+        <url-pattern>/DEServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MunServlet</servlet-name>

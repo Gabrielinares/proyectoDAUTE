@@ -21,14 +21,12 @@ public class DetalleEmpleado {
         
     }
 
-    public DetalleEmpleado(int idDE, String fechaInicio, String fechaFin, int ProyId, int EmpDui, String proyecto, String empleado) {
+    public DetalleEmpleado(int idDE, String fechaInicio, String fechaFin, int ProyId, int EmpDui) {
         this.idDE = idDE;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.ProyId = ProyId;
         this.EmpDui = EmpDui;
-        this.proyecto = proyecto;
-        this.empleado = empleado;
     }
 
     public int getIdDE() {
