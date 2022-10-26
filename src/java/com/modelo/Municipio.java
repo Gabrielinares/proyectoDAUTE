@@ -24,6 +24,8 @@ public class Municipio {
         this.deptoId = deptoId;
     }
 
+    
+
     public int getIdMun() {
         return idMun;
     }

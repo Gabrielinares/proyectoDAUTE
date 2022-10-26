@@ -60,7 +60,7 @@ public class MunicipioDAO extends Conexion {
         ArrayList<Municipio> lista = new ArrayList<>();
         try {
             this.conectar();
-            String sql = "SELECT m.idMunicipio, m.nombreMun AS municipio, d.nombreDepto, m.deptoId AS departamento FROM municipio AS m INNER JOIN departamento AS d ON (m.deptoId = d.idDepto);";
+            String sql = "SELECT m.idMunicipio, m.nombreMun AS municipio, d.nombreDepto, m.deptoId AS departamento FROM municipio AS m INNER JOIN departamento AS d ON (m.deptoId = d.idDepto)";
             PreparedStatement ps = this.getCon().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 

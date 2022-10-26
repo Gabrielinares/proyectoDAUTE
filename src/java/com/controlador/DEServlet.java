@@ -4,8 +4,8 @@
  */
 package com.controlador;
 
-import com.dao.MunicipioDAO;
-import com.modelo.Municipio;
+import com.dao.DetalleEmpleadoDAO;
+import com.modelo.DetalleEmpleado;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author gabriel
+ * @author manmn
  */
-public class MunServlet extends HttpServlet {
+public class DEServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,38 +33,39 @@ public class MunServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            int codigo = Integer.parseInt(request.getParameter("txtCodigo"));
-            String nombre = request.getParameter("txtNombre");
-            int deptoId = Integer.parseInt(request.getParameter("txtDepto"));
+            
+            int dui = Integer.parseInt(request.getParameter("txtCodigo"));
+            String fechaI = request.getParameter("txtFechaI");
+            String fechaF = request.getParameter("txtFechaF");
+            int Emp = Integer.parseInt(request.getParameter("txtEmp"));
+            int ProyId = Integer.parseInt(request.getParameter("txtProy"));
             
             int res = 0;
             String msj = "";
             
-            MunicipioDAO mdao = new MunicipioDAO();
-            Municipio m = new Municipio(codigo, nombre, deptoId);
+            DetalleEmpleadoDAO dedao = new DetalleEmpleadoDAO();
+            DetalleEmpleado de = new DetalleEmpleado(dui, fechaI, fechaF, ProyId, Emp);
             
             if(request.getParameter("btnGuardar") != null){
-                res = mdao.agregarMun(m);
-                if (res != 0){
+                res = dedao.agregarDE(de);
+                if(res != 0){
                     msj = "Registro agregado";
                 }
             } else if(request.getParameter("btnEditar") != null){
-                res = mdao.modificarMun(m);
-                if (res != 0){
-                    msj = "Registro modificado";
+                res = dedao.modificarDE(de);
+                if(res != 0){
+                    msj = "Registro editado";
                 }
             } else if(request.getParameter("btnEliminar") != null){
-                res = mdao.eliminarMun(m);
-                if (res != 0){
+                res = dedao.eliminarDE(de);
+                if(res != 0){
                     msj = "Registro eliminado";
                 }
             }
-            
             request.setAttribute("message", msj);
-            request.getRequestDispatcher("/vistas/municipio.jsp").forward(request, response);
-            
-        } catch (Exception e){
-            System.out.println("Error: " + e.getMessage());
+            request.getRequestDispatcher("/vistas/detalleempleado.jsp").forward(request, response);
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
         }
     }
 
