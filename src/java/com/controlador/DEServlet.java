@@ -34,7 +34,7 @@ public class DEServlet extends HttpServlet {
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             
-            int dui = Integer.parseInt(request.getParameter("txtDui"));
+            int dui = Integer.parseInt(request.getParameter("txtCodigo"));
             String fechaI = request.getParameter("txtFechaI");
             String fechaF = request.getParameter("txtFechaF");
             int Emp = Integer.parseInt(request.getParameter("txtEmp"));
@@ -44,7 +44,7 @@ public class DEServlet extends HttpServlet {
             String msj = "";
             
             DetalleEmpleadoDAO dedao = new DetalleEmpleadoDAO();
-            DetalleEmpleado de = new DetalleEmpleado(dui,fechaI, fechaF, Emp, ProyId);
+            DetalleEmpleado de = new DetalleEmpleado(dui, fechaI, fechaF, ProyId, Emp);
             
             if(request.getParameter("btnGuardar") != null){
                 res = dedao.agregarDE(de);
@@ -63,7 +63,7 @@ public class DEServlet extends HttpServlet {
                 }
             }
             request.setAttribute("message", msj);
-            request.getRequestDispatcher("/vistas/detallemaquinaria.jsp").forward(request, response);
+            request.getRequestDispatcher("/vistas/detalleempleado.jsp").forward(request, response);
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
         }

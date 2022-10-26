@@ -6,24 +6,21 @@
 /* global emp, proy */
 
 function llenarFormulario(fila) {
-    var dui = $(fila).find(".dui").text();
+    var dui = $(fila).find(".id").text();
     var fechaI = $(fila).find(".fechaI").text();
     var fechaF = $(fila).find(".fechaF").text();
-    var Emp = $(fila).find(".TxtEmp").text();
-    var proyId = $(fila).find(".proy").text();
+    var proy = $(fila).find(".proy").text();
+    var emp = $(fila).find(".emp").text();
     
 
-    console.log(emp);
-    console.log(proyId);
-
-    $("#txtDui").val(dui);
+    $("#txtCodigo").val(dui);
     $("#txtFechaI").val(fechaI);
     $("#txtFechaF").val(fechaF);
     $("#txtEmp option[selected]").removeAttr('selected');
     $("#txtEmp option:contains(" + emp + ")").attr('selected', true);
 
-    $("#txtproy option[selected]").removeAttr('selected');
-    $("#txtproy option:contains(" + proy + ")").attr('selected', true);
+    $("#txtProy option[selected]").removeAttr('selected');
+    $("#txtProy option:contains(" + proy + ")").attr('selected', true);
 }
 
 $(document).ready(function () {
@@ -31,7 +28,7 @@ $(document).ready(function () {
     $("#exampleModal").on("hidden.bs.modal", function () {
         $('#form')[0].reset();
         $("#txtProy option[selected]").removeAttr('selected');
-        $("#txtMaq option[selected]").removeAttr('selected');
+        $("#txtEmp option[selected]").removeAttr('selected');
 
     });
 
@@ -41,7 +38,7 @@ $(document).ready(function () {
         $('.btnOcultar').removeAttr('disabled');
     });
     $(document).on('click', '.btnEliminar', function () {
-        //llenarFormulario($(this).closest('tr'));
+        llenarFormulario($(this).closest('tr'));
         $('.btnOcultar1').attr('disabled', 'disabled');
         $('.btnOcultar').removeAttr('disabled');
     });

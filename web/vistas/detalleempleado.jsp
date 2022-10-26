@@ -5,6 +5,10 @@
 --%>
 
 
+<%@page import="com.modelo.Proyecto"%>
+<%@page import="com.dao.ProyectoDAO"%>
+<%@page import="com.modelo.Empleado"%>
+<%@page import="com.dao.EmpleadoDAO"%>
 <%@page import="com.modelo.DetalleEmpleado"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.dao.DetalleEmpleadoDAO"%>
@@ -86,21 +90,21 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Id Empleado</th>
+                                            <th>Codigo</th>
                                             <th>Fecha inicio</th>
                                             <th>Fecha final</th>
                                             <th>Proyecto</th>
-                                            <th>DUI</th>
+                                            <th>Empleado</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Id Empleado</th>
+                                            <th>Codigo</th>
                                             <th>Fecha inicio</th>
                                             <th>Fecha final</th>
                                             <th>Proyecto</th>
-                                            <th>DUI</th>
+                                            <th>Empleado</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </tfoot>
@@ -118,7 +122,7 @@
                                             <td hidden class="proyold"><%= elem.getProyId()%></td>
                                             <td class="proy"><%= elem.getProyecto()%></td>
                                             <td hidden class="empleadoDui"><%= elem.getEmpDui()%></td>
-                                            <td  class="dui"><%= elem.getEmpDui()%></td>
+                                            <td  class="emp"><%= elem.getEmpleado()%></td>
 
 
                                             <td>
@@ -159,7 +163,7 @@
                         <form action="${pageContext.servletContext.contextPath}/DEServlet" method="POST" id="form">
                             <div class="row">
                                 <div class="col-6">
-                                    <label>DUI</label>
+                                    <label>Codigo</label>
                                     <input type="text" name="txtCodigo" class="form-control" id="txtCodigo" value="0" >
                                 </div>
                                 
@@ -181,14 +185,30 @@
                                     <label>Empleados</label><br>
                                     <select name="txtEmp" id="txtEmp" class="form-select">
                                         <option value="0">Seleccionar Empleado...</option>
-                                        
+                                        <%
+                                            EmpleadoDAO edao = new EmpleadoDAO();
+                                            
+                                            ArrayList<Empleado> lE = edao.mostrarEmpleados();
+                                            
+                                            for (Empleado elem : lE){
+                                        %>
+                                        <option value="<%= elem.getDui() %>"><%= elem.getNombreEmp() %></option>
+                                        <%}%>
                                     </select>
                                 </div>
                                     <div class="col-6">
                                     <label>Proyecto</label><br>
                                     <select name="txtProy" id="txtProy" class="form-select">
                                         <option value="0">Seleccionar proyecto...</option>
-                                        
+                                        <%
+                                            ProyectoDAO pdao = new ProyectoDAO();
+                                            
+                                            ArrayList<Proyecto> lP = pdao.mostrarProyectos();
+                                            
+                                            for (Proyecto elem : lP){
+                                        %>
+                                        <option value="<%= elem.getIdProy()%>"><%= elem.getNombreProy() %></option>
+                                        <%}%>
                                     </select>
                                 </div>
                             </div>
@@ -244,7 +264,7 @@
             }
         %>
 
-        <script src="${pageContext.servletContext.contextPath}/js/detalleMaq.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/js/detalleEmp.js"></script>
     </body>
 
 </html>

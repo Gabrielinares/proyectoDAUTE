@@ -21,20 +21,13 @@ public class DetalleEmpleado {
         
     }
 
-    public DetalleEmpleado(int idDE, String fechaInicio, String fechaFin, int ProyId, int EmpDui, String proyecto, String empleado) {
+    public DetalleEmpleado(int idDE, String fechaInicio, String fechaFin, int ProyId, int EmpDui) {
         this.idDE = idDE;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.ProyId = ProyId;
         this.EmpDui = EmpDui;
-        this.proyecto = proyecto;
-        this.empleado = empleado;
     }
-
-    public DetalleEmpleado(int codigo, String fechaI, String fechaF, int Emp, int ProyId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
 
     public int getIdDE() {
         return idDE;
