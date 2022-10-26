@@ -18,11 +18,11 @@
             <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/detallemaquinaria.jsp">Maquinaria asignada</a>
 
             <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/empleado.jsp#">Empleado</a>
-            <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/detalleempleado.jsp#">Detalle Empleado</a>
+            <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/detalleempleado.jsp">Detalle Empleado</a>
 
             <a class="dropdown-item" href="#">Proyectos</a>
             <a class="dropdown-item" href="#">Departamentos</a>
-            <a class="dropdown-item" href="#">Municipios</a>
+            <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/municipio.jsp">Municipios</a>
         </div>
     </li>
     <li class="nav-item">

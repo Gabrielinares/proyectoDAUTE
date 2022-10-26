@@ -18,12 +18,13 @@ public class Municipio {
         
     }
 
-    public Municipio(int idMun, String nombreMun, int deptoId, String depto) {
+    public Municipio(int idMun, String nombreMun, int deptoId) {
         this.idMun = idMun;
         this.nombreMun = nombreMun;
         this.deptoId = deptoId;
-        this.depto = depto;
     }
+
+    
 
     public int getIdMun() {
         return idMun;
