@@ -4,10 +4,7 @@
     Author     : gabriel
 --%>
 
-<%@page import="com.dao.EmpleadoDAO"%>
-<%@page import="com.modelo.Empleado"%>
-<%@page import="com.dao.ProyectoDAO"%>
-<%@page import="com.modelo.Proyecto"%>
+
 <%@page import="com.modelo.DetalleEmpleado"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.dao.DetalleEmpleadoDAO"%>
@@ -45,9 +42,7 @@
     <body id="page-top">
 
         <%
-            DetalleEmpleadoDAO dmdao = new DetalleEmpleadoDAO();
-            ProyectoDAO pdao = new ProyectoDAO();
-            EmpleadoDAO mdao = new EmpleadoDAO();
+            DetalleEmpleadoDAO dedao = new DetalleEmpleadoDAO();
         %>
 
         <%@include file="../template/navbar.jsp" %>
@@ -111,7 +106,7 @@
                                     </tfoot>
                                     <tbody>
                                         <%
-                                            ArrayList<DetalleEmpleado> lista = dmdao.mostrarDE();
+                                            ArrayList<DetalleEmpleado> lista = dedao.mostrarDE();
 
 
                                             for (DetalleEmpleado elem : lista) {
@@ -123,7 +118,7 @@
                                             <td hidden class="proyold"><%= elem.getProyId()%></td>
                                             <td class="proy"><%= elem.getProyecto()%></td>
                                             <td hidden class="empleadoDui"><%= elem.getEmpDui()%></td>
-                                            <td  class="DUI"><%= elem.getEmpDui()%></td>
+                                            <td  class="dui"><%= elem.getEmpDui()%></td>
 
 
                                             <td>
@@ -157,58 +152,43 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Datos maquinaria</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Datos Empleado</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="${pageContext.servletContext.contextPath}/DMServlet" method="POST" id="form">
+                        <form action="${pageContext.servletContext.contextPath}/DEServlet" method="POST" id="form">
                             <div class="row">
                                 <div class="col-6">
-                                    <label>Codigo</label>
-                                    <input type="text" name="txtCodigo" class="form-control" id="txtCodigo" value="0" readonly="true">
+                                    <label>DUI</label>
+                                    <input type="text" name="txtCodigo" class="form-control" id="txtCodigo" value="0" >
                                 </div>
+                                
+                                
+                            </div>
+                            <div class="row">
                                 <div class="col-6">
                                     <label>Fecha inicio</label>
                                     <input type="date" name="txtFechaI" class="form-control" id="txtFechaI">
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-6">
                                     <label>Fecha final</label>
                                     <input type="date" name="txtFechaF" class="form-control" id="txtFechaF">
                                 </div>
-                                <div class="col-6">
-                                    <label>Proyecto</label><br>
-                                    <select name="txtProy" id="txtProy" class="form-select">
-                                        <option value="0">Seleccionar proyecto...</option>
-                                        <%
-                                            ArrayList<Proyecto> lP = pdao.mostrarProyectos();
-                                            for (Proyecto elem : lP) {
-
-
-                                        %>
-                                        <option value="<%= elem.getIdProy()%>"><%= elem.getNombreProy()%></option>
-                                        <%
-                                            }
-                                        %>
-                                    </select>
-                                </div>
+                                
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <label>Maquinaria</label><br>
-                                    <select name="txtMaq" id="txtMaq" class="form-select">
-                                        <option value="0">Seleccionar maquinaria...</option>
-                                        <%
-                                            ArrayList<Empleado> lM = mdao.mostrarEmpleados();
-                                            for (Empleado elem : lM) {
-
-
-                                        %>
-                                        <option value="<%= elem.getNombreEmp()%>"><%= elem.getNombreEmp()%></option>
-                                        <%
-                                            }
-                                        %>
+                                    <label>Empleados</label><br>
+                                    <select name="txtEmp" id="txtEmp" class="form-select">
+                                        <option value="0">Seleccionar Empleado...</option>
+                                        
+                                    </select>
+                                </div>
+                                    <div class="col-6">
+                                    <label>Proyecto</label><br>
+                                    <select name="txtProy" id="txtProy" class="form-select">
+                                        <option value="0">Seleccionar proyecto...</option>
+                                        
                                     </select>
                                 </div>
                             </div>

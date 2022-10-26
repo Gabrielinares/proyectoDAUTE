@@ -44,8 +44,7 @@
 
     <body id="page-top">
 
-        <%
-            EmpleadoDAO edao = new EmpleadoDAO();
+        <%            EmpleadoDAO edao = new EmpleadoDAO();
         %>
 
         <%@include file="../template/navbar.jsp" %>
@@ -118,10 +117,10 @@
                                             String estado = "";
 
                                             for (Empleado elem : lista) {
-                                                if (elem.getDui()== 1) {
-                                                    estado = "Activo";
-                                                } else if (elem.getDui()!= 1) {
-                                                    estado = "Inactivo";
+                                                if (elem.getDisp()== 1) {
+                                                    estado = "Si";
+                                                } else if (elem.getDisp() != 1) {
+                                                    estado = "No";
                                                 }
 
                                         %>
@@ -129,7 +128,7 @@
                                             <td class="dui"><%= elem.getDui()%></td>
                                             <td class="NombreEmp"><%= elem.getNombreEmp()%></td>
                                             <td class="ApellidoEmp"><%= elem.getApellidoEmp()%></td>
-                                            <td class="Disp"><%= elem.getDisp()%></td>
+                                            <td align="center" class="Disp"><%= estado%></td>
                                             <td class="Salario"><%= elem.getSalario()%></td>
                                             <td class="Telefono"><%= elem.getTelefono()%></td>
                                             <td>
@@ -163,39 +162,46 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Datos Cliente</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Datos Empleado</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="${pageContext.servletContext.contextPath}/UsuarioServlet" method="post" enctype="multipart/form-data" id="form">
+                        <form action="${pageContext.servletContext.contextPath}/EmpleadoServlet" method="POST" id="form">
                             <div class="row">
                                 <div class="col-6">
-                                    <label>Codigo</label>
-                                    <input type="text" name="txtCodigo" class="form-control" id="txtCodigo" value="0" readonly="true">
+                                    <label>DUI</label>
+                                    <input type="text" name="txtDui" class="form-control" id="txtDui">
+                                </div>
+                            </div> <br>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>Nombre</label>
+                                    <input type="text" name="txtNom" class="form-control" id="txtNom">
                                 </div>
                                 <div class="col-6">
-                                    <label>Usuario</label>
-                                    <input type="text" name="txtUser" class="form-control" id="txtUser">
+                                    <label>Apellido</label><br>
+                                    <input type="text" name="txtApe" class="form-control" id="txtApe">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <label>Contrase&ntilde;a</label>
-                                    <input type="text" name="txtPass" class="form-control" id="txtPass">
+                                    <label>Salario</label>
+                                    <input type="text" name="txtSal" class="form-control" id="txtSal">
                                 </div>
                                 <div class="col-6">
-                                    <label>Categoría</label><br>
-                                    <select name="txtEstado" id="txtEstado" class="form-select">
-                                        <option value="3">Seleccionar...</option>
-                                        <option value="0">Inactivo</option>
-                                        <option value="1">Activo</option>
+                                    <label>Telefono</label><br>
+                                    <input type="text" name="txtTel" class="form-control" id="txtTel">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>Disponibilidad</label><br>
+                                    <select name="txtDisp" id="txtDisp">
+                                        <option value="3"> Seleccione... </option>
+                                        <option value="1"> Si </option>
+                                        <option value="0"> No </option>
+
                                     </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <label>Foto</label>
-                                    <input type="file" name="foto">
                                 </div>
                             </div>
                             <br>
@@ -233,7 +239,7 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.38/sweetalert2.all.min.js"></script>
 
-        <script src="${pageContext.servletContext.contextPath}/js/usuarios.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/js/empleado.js"></script>
         <%
             if (request.getAttribute("message") != null) {
         %>

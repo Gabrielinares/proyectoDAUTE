@@ -31,6 +31,11 @@ public class DetalleEmpleado {
         this.empleado = empleado;
     }
 
+    public DetalleEmpleado(int codigo, String fechaI, String fechaF, int Emp, int ProyId) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+
     public int getIdDE() {
         return idDE;
     }

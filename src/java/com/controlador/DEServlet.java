@@ -4,22 +4,20 @@
  */
 package com.controlador;
 
-import com.dao.EmpleadoDAO;
-import com.modelo.Empleado;
+import com.dao.DetalleEmpleadoDAO;
+import com.modelo.DetalleEmpleado;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author gabriel
+ * @author manmn
  */
-@MultipartConfig //Linea necesaria para procesar forms con imagenes
-public class EmpleadoServlet extends HttpServlet {
+public class DEServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,37 +34,36 @@ public class EmpleadoServlet extends HttpServlet {
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             
-            
             int dui = Integer.parseInt(request.getParameter("txtDui"));
-            String nombre = request.getParameter("txtNom");
-            String apellido = request.getParameter("txtApe");
-            double salario = Double.parseDouble(request.getParameter("txtSal"));
-            String telefono = request.getParameter("txtTel");
-            int disp = Integer.parseInt(request.getParameter("txtDisp"));
+            String fechaI = request.getParameter("txtFechaI");
+            String fechaF = request.getParameter("txtFechaF");
+            int Emp = Integer.parseInt(request.getParameter("txtEmp"));
+            int ProyId = Integer.parseInt(request.getParameter("txtProy"));
+            
             int res = 0;
             String msj = "";
             
-            EmpleadoDAO edao = new EmpleadoDAO();
-            Empleado e = new Empleado(dui, nombre, apellido, telefono, salario, disp);
+            DetalleEmpleadoDAO dedao = new DetalleEmpleadoDAO();
+            DetalleEmpleado de = new DetalleEmpleado(dui,fechaI, fechaF, Emp, ProyId);
             
             if(request.getParameter("btnGuardar") != null){
-                res = edao.agregarEmpleado(e);
+                res = dedao.agregarDE(de);
                 if(res != 0){
                     msj = "Registro agregado";
                 }
             } else if(request.getParameter("btnEditar") != null){
-                res = edao.modificarEmpleado(e);
+                res = dedao.modificarDE(de);
                 if(res != 0){
                     msj = "Registro editado";
                 }
             } else if(request.getParameter("btnEliminar") != null){
-                res = edao.eliminarEmpleado(e);
+                res = dedao.eliminarDE(de);
                 if(res != 0){
                     msj = "Registro eliminado";
                 }
             }
             request.setAttribute("message", msj);
-            request.getRequestDispatcher("/vistas/empleado.jsp").forward(request, response);
+            request.getRequestDispatcher("/vistas/detallemaquinaria.jsp").forward(request, response);
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
         }
