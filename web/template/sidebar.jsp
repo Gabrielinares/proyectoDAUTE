@@ -19,7 +19,7 @@
             <a class="dropdown-item" href="#">Empleado</a>
             <a class="dropdown-item" href="#">Proyectos</a>
             <a class="dropdown-item" href="#">Departamentos</a>
-            <a class="dropdown-item" href="#">Municipios</a>
+            <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/municipio.jsp">Municipios</a>
         </div>
     </li>
     <li class="nav-item">
