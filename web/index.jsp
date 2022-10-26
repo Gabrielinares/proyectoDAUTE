@@ -53,8 +53,7 @@
           </li>
           <li class="breadcrumb-item active">Overview</li>
         </ol>
-
-        <h1>Sistema de proyectos - SISV11 </h1>
+      <h1>Sistema de proyectos - SISV11 </h1>
         
       </div>
       <!-- /.container-fluid -->
