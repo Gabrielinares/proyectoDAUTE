@@ -38,7 +38,7 @@ $(document).ready(function () {
         $('.btnOcultar').removeAttr('disabled');
     });
     $(document).on('click', '.btnEliminar', function () {
-        //llenarFormulario($(this).closest('tr'));
+        llenarFormulario($(this).closest('tr'));
         $('.btnOcultar1').attr('disabled', 'disabled');
         $('.btnOcultar').removeAttr('disabled');
     });
