@@ -8,6 +8,8 @@ import com.dao.DetalleMaquinariaDAO;
 import com.modelo.DetalleMaquinaria;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,8 +36,8 @@ public class DMServlet extends HttpServlet {
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             int codigo = Integer.parseInt(request.getParameter("txtCodigo"));
-            String fechaI = request.getParameter("txtFechaI");
-            String fechaF = request.getParameter("txtFechaF");
+            Date fechaI = Date.valueOf(request.getParameter("txtFechaI"));
+            Date fechaF = Date.valueOf(request.getParameter("txtFechaF"));
             int ProyId = Integer.parseInt(request.getParameter("txtProy"));
             int MaqId = Integer.parseInt(request.getParameter("txtMaq"));
             

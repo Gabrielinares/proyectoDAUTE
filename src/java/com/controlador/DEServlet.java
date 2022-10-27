@@ -8,6 +8,7 @@ import com.dao.DetalleEmpleadoDAO;
 import com.modelo.DetalleEmpleado;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,8 +36,8 @@ public class DEServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             
             int dui = Integer.parseInt(request.getParameter("txtCodigo"));
-            String fechaI = request.getParameter("txtFechaI");
-            String fechaF = request.getParameter("txtFechaF");
+            Date fechaI = Date.valueOf(request.getParameter("txtFechaI"));
+            Date fechaF = Date.valueOf(request.getParameter("txtFechaF"));
             int Emp = Integer.parseInt(request.getParameter("txtEmp"));
             int ProyId = Integer.parseInt(request.getParameter("txtProy"));
             

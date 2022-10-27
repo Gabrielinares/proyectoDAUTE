@@ -23,8 +23,8 @@ public class DetalleEmpleadoDAO extends Conexion {
             this.conectar();
             String sql = "INSERT INTO detalleempleado(fechaInicio, fechaFinal, proyectoId, empleadoDUI) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = this.getCon().prepareStatement(sql);
-            ps.setString(1, de.getFechaInicio());
-            ps.setString(2, de.getFechaFin());
+            ps.setDate(1, de.getFechaInicio());
+            ps.setDate(2, de.getFechaFin());
             ps.setInt(3, de.getProyId());
             ps.setInt(4, de.getEmpDui());
 
@@ -43,8 +43,8 @@ public class DetalleEmpleadoDAO extends Conexion {
             this.conectar();
             String sql = "UPDATE detalleempleado SET fechaInicio = ?, fechaFinal = ?, proyectoId = ?, empleadoDUI = ? WHERE idDetalleEmpleado = ?";
             PreparedStatement ps = this.getCon().prepareStatement(sql);
-            ps.setString(1, de.getFechaInicio());
-            ps.setString(2, de.getFechaFin());
+            ps.setDate(1, de.getFechaInicio());
+            ps.setDate(2, de.getFechaFin());
             ps.setInt(3, de.getProyId());
             ps.setInt(4, de.getEmpDui());
             ps.setInt(5, de.getIdDE());
@@ -69,8 +69,8 @@ public class DetalleEmpleadoDAO extends Conexion {
             while (rs.next()) {
                 DetalleEmpleado de = new DetalleEmpleado();
                 de.setIdDE(rs.getInt(1));
-                de.setFechaInicio(rs.getString(2));
-                de.setFechaFin(rs.getString(3));
+                de.setFechaInicio(rs.getDate(2));
+                de.setFechaFin(rs.getDate(3));
                 de.setProyecto(rs.getString(4));
                 de.setEmpleado(rs.getString(5));
                 de.setProyId(rs.getInt(6));
