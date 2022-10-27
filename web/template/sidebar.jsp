@@ -20,8 +20,8 @@
             <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/empleado.jsp#">Empleado</a>
             <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/detalleempleado.jsp">Detalle Empleado</a>
 
-            <a class="dropdown-item" href="#">Proyectos</a>
-            <a class="dropdown-item" href="#">Departamentos</a>
+            <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/proyecto.jsp">Proyectos</a>
+            <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/departamento.jsp">Departamentos</a>
             <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/municipio.jsp">Municipios</a>
         </div>
     </li>

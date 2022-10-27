@@ -21,14 +21,13 @@ public class Proyecto {
         
     }
 
-    public Proyecto(int idProy, String nombreProy, String estado, double valorProy, String motivoCancel, int deptoId, String depto) {
+    public Proyecto(int idProy, String nombreProy, String estado, double valorProy, String motivoCancel, int deptoId) {
         this.idProy = idProy;
         this.nombreProy = nombreProy;
         this.estado = estado;
         this.valorProy = valorProy;
         this.motivoCancel = motivoCancel;
         this.deptoId = deptoId;
-        this.depto = depto;
     }
 
     public int getIdProy() {

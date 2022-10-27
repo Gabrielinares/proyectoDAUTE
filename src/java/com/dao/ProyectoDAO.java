@@ -63,7 +63,7 @@ public class ProyectoDAO extends Conexion {
         ArrayList<Proyecto> lista = new ArrayList<>();
         try {
             this.conectar();
-            String sql = "SELECT p.idProyecto, p.nombreProyecto, p.costoProyecto, p.estadoProyecto, p.motivoCancelacion, d.nombreDepto FROM proyecto AS p INNER JOIN departamento AS d ON (p.deptoId = d.idDepto)";
+            String sql = "SELECT p.idProyecto, p.nombreProyecto, p.costoProyecto, p.estadoProyecto, p.motivoCancelacion, d.nombreDepto, p.deptoId FROM proyecto AS p INNER JOIN departamento AS d ON (p.deptoId = d.idDepto)";
             PreparedStatement ps = this.getCon().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
@@ -75,7 +75,7 @@ public class ProyectoDAO extends Conexion {
                 p.setEstado(rs.getString(4));
                 p.setMotivoCancel(rs.getString(5));
                 p.setDepto(rs.getString(6));
-
+                p.setDeptoId(rs.getInt(7));
                 lista.add(p);
             }
         } catch (SQLException e) {
@@ -93,6 +93,25 @@ public class ProyectoDAO extends Conexion {
             String sql = "DELETE FROM proyecto WHERE idProyecto = ?";
             PreparedStatement ps = this.getCon().prepareStatement(sql);
             ps.setInt(1, p.getIdProy());
+            
+            res = ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            this.desconectar();
+        }
+        return res;
+    }
+    
+    public int cancelarProyecto(String razon, int id){
+        int res = 0;
+        
+        try {
+            this.conectar();
+            String sql = "UPDATE proyecto SET motivoCancelacion = ?, estadoProyecto = 'Cancelado' WHERE idProyecto = ?";
+            PreparedStatement ps = this.getCon().prepareStatement(sql);
+            ps.setString(1, razon);
+            ps.setInt(2, id);
             
             res = ps.executeUpdate();
         } catch (SQLException e) {

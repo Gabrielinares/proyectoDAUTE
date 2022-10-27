@@ -1,14 +1,15 @@
 <%-- 
-    Document   : usuarios
-    Created on : 24 oct. 2022, 16:31:33
+    Document   : proyecto
+    Created on : 26 oct. 2022, 17:03:53
     Author     : gabriel
 --%>
 
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.modelo.Usuario"%>
-<%@page import="com.dao.UsuarioDAO"%>
-<%@page import="java.util.List"%>
 
+<%@page import="com.modelo.Departamento"%>
+<%@page import="com.dao.DepartamentoDAO"%>
+<%@page import="com.modelo.Proyecto"%>
+<%@page import="com.dao.ProyectoDAO"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@include file="/template/session.jsp" %>
@@ -25,7 +26,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Gesti&oacute;n de usuarios</title>
+        <title>Gesti&oacute;n de Proyectos</title>
 
         <!-- Custom fonts for this template-->
         <link href="${pageContext.servletContext.contextPath}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -38,13 +39,11 @@
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.38/sweetalert2.min.css" />
 
-
     </head>
 
     <body id="page-top">
 
-        <%
-            UsuarioDAO udao = new UsuarioDAO();
+        <%            ProyectoDAO pdao = new ProyectoDAO();
         %>
 
         <%@include file="../template/navbar.jsp" %>
@@ -61,14 +60,14 @@
                     <!-- Breadcrumbs-->
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="#">Usuarios</a>
+                            <a href="#">Proyectos</a>
                         </li>
                         <li class="breadcrumb-item active">Overview</li>
                     </ol>
 
                     <div class="row">
                         <div class="col-lg-8">
-                            <h1>Gesti&oacute;n de usuarios</h1>
+                            <h1>Gesti&oacute;n de Proyectos</h1>
                         </div>
                         <div class="col-lg-4">
                             <button type="button" class="btn btn-success float-right btnAdd" data-toggle="modal" data-target="#exampleModal">Agregar</button>
@@ -88,48 +87,51 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>C&oacute;digo</th>
-                                            <th>Usuario</th>
-                                            <th>Contrase&ntilde;a</th>
+                                            <th>Codigo</th>
+                                            <th>Nombre</th>
+                                            <th>Costo</th>
                                             <th>Estado</th>
-                                            <th>Foto</th>
+                                            <th>Razon de cancelado</th>
+                                            <th>Departamento</th>
                                             <th>Acciones</th>
 
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>C&oacute;digo</th>
-                                            <th>Usuario</th>
-                                            <th>Contrase&ntilde;a</th>
+                                            <th>Codigo</th>
+                                            <th>Nombre</th>
+                                            <th>Costo</th>
                                             <th>Estado</th>
-                                            <th>Foto</th>
+                                            <th>Razon de cancelado</th>
+                                            <th>Departamento</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </tfoot>
-                                    <tbody id="construirTabla">
+                                    <tbody>
                                         <%
-                                            ArrayList<Usuario> lista = udao.mostrarUsuarios();
+                                            ArrayList<Proyecto> lista = pdao.mostrarProyectos();
 
-                                            String estado = "";
-
-                                            for (Usuario elem : lista) {
-                                                if (elem.getEstado() == 1) {
-                                                    estado = "Activo";
-                                                } else if (elem.getEstado() != 1) {
-                                                    estado = "Inactivo";
+                                            String motivo = "";
+                                            for (Proyecto elem : lista) {
+                                                if (elem.getMotivoCancel() == null || elem.getMotivoCancel() == "") {
+                                                    motivo = "Vigente";
+                                                } else {
+                                                    motivo = elem.getMotivoCancel();
                                                 }
-
                                         %>
                                         <tr>
-                                            <td class="codigo"><%= elem.getIdUser()%></td>
-                                            <td class="usuario"><%= elem.getUsername()%></td>
-                                            <td class="contra"><%= elem.getPassw()%></td>
-                                            <td class="estado"><%= estado%></td>
-                                            <td> <img src="${pageContext.servletContext.contextPath}/fotoPerfil?id=<%=elem.getIdUser() %>" alt="Foto de perfil" height="90" width="90" /> </td>
-                                            <td>
+                                            <td class="id"><%= elem.getIdProy()%></td>
+                                            <td class="nombre"><%= elem.getNombreProy()%></td>
+                                            <td class="costo"><%= elem.getValorProy()%></td>
+                                            <td class="estado"><%= elem.getEstado()%></td>
+                                            <td class="rCancel"><%= motivo%></td>
+                                            <td class="depto"><%= elem.getDepto()%></td>
+                                            <td class="">
                                                 <button type="button" class="btn btn-dark btnEditar" data-toggle="modal" data-target="#exampleModal">Editar</button>
                                                 <button type="button" class="btn btn-danger btnEliminar" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
+                                                <br>
+                                                <button type="button" class="btn btn-warning btnCancelar" data-toggle="modal" data-target="#cancelModal">Cancelar</button>
                                             </td>
                                         </tr>
                                         <%
@@ -158,39 +160,52 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Datos Cliente</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Datos Proyecto</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="${pageContext.servletContext.contextPath}/UsuarioServlet" method="post" enctype="multipart/form-data" id="form">
+                        <form action="${pageContext.servletContext.contextPath}/ProyectoServlet" method="POST" id="form">
                             <div class="row">
                                 <div class="col-6">
                                     <label>Codigo</label>
-                                    <input type="text" name="txtCodigo" class="form-control" id="txtCodigo" value="0" readonly="true">
-                                </div>
-                                <div class="col-6">
-                                    <label>Usuario</label>
-                                    <input type="text" name="txtUser" class="form-control" id="txtUser">
+                                    <input type="text" name="txtCodigo" class="form-control" id="txtCodigo" value="0" >
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <label>Contrase&ntilde;a</label>
-                                    <input type="text" name="txtPass" class="form-control" id="txtPass">
+                                    <label>Nombre</label>
+                                    <input type="text" name="txtNombre" class="form-control" id="txtNombre">
                                 </div>
+                                <div class="col-6">
+                                    <label>Costo</label>
+                                    <input type="text" name="txtCosto" class="form-control" id="txtCosto">
+                                </div>
+
+                            </div>
+                            <div class="row">
                                 <div class="col-6">
                                     <label>Estado</label><br>
                                     <select name="txtEstado" id="txtEstado" class="form-select">
-                                        <option value="3">Seleccionar...</option>
-                                        <option value="0">Inactivo</option>
-                                        <option value="1">Activo</option>
+                                        <option value="0">Seleccionar estado...</option>
+                                        <option value="Ingresado"> Ingresado </option>
+                                        <option value="Confirmado"> Confirmado </option>
+                                        <option value="Entregado"> Entregado </option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-6">
-                                    <label>Foto</label>
-                                    <input type="file" name="foto">
+                                    <label>Departamento</label><br>
+                                    <select name="txtDepto" id="txtDepto" class="form-select">
+                                        <option value="0">Seleccionar proyecto...</option>
+                                        <%
+                                            DepartamentoDAO ddao = new DepartamentoDAO();
+
+                                            ArrayList<Departamento> lD = ddao.mostrarDeptos();
+
+                                            for (Departamento elem : lD) {
+                                        %>
+                                        <option value="<%= elem.getIdDepto()%>"><%= elem.getNombreDepto()%></option>
+                                        <%}%>
+                                    </select>
                                 </div>
                             </div>
                             <br>
@@ -207,6 +222,41 @@
                 </div>
             </div>
         </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Cancelar Proyecto</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="${pageContext.servletContext.contextPath}/CancelServlet" method="POST" id="form">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>Codigo</label>
+                                    <input type="text" name="txtCodigoC" class="form-control" id="txtCodigoC" value="0" >
+                                </div>
+                                <div class="col-6">
+                                    <label>Razon</label>
+                                    <input type="text" name="txtCancel" class="form-control" id="txtCodigo" placeholder="Ingrese aqui el motivo de cancelacion" >
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-12">
+                                    <button type="submit" name="btnCancelar" class="btn btn-success btnOcultar1">Realizar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <!-- Bootstrap core JavaScript-->
         <script src="${pageContext.servletContext.contextPath}/vendor/jquery/jquery.min.js"></script>
         <script src="${pageContext.servletContext.contextPath}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -225,10 +275,8 @@
         <!-- Demo scripts for this page-->
         <script src="${pageContext.servletContext.contextPath}/js/demo/datatables-demo.js"></script>
         <script src="${pageContext.servletContext.contextPath}/js/demo/chart-area-demo.js"></script>
-
         <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.38/sweetalert2.all.min.js"></script>
 
-        <script src="${pageContext.servletContext.contextPath}/js/usuarios.js"></script>
         <%
             if (request.getAttribute("message") != null) {
         %>
@@ -246,7 +294,8 @@
         <%
             }
         %>
+
+        <script src="${pageContext.servletContext.contextPath}/js/proyecto.js"></script>
     </body>
 
 </html>
-
