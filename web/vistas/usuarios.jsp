@@ -179,7 +179,7 @@
                                     <input type="text" name="txtPass" class="form-control" id="txtPass">
                                 </div>
                                 <div class="col-6">
-                                    <label>Categoría</label><br>
+                                    <label>Estado</label><br>
                                     <select name="txtEstado" id="txtEstado" class="form-select">
                                         <option value="3">Seleccionar...</option>
                                         <option value="0">Inactivo</option>
