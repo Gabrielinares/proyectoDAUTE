@@ -108,7 +108,7 @@ public class ProyectoDAO extends Conexion {
         
         try {
             this.conectar();
-            String sql = "UPDATE proyecto SET motivoCancelacion = ? WHERE idProyecto = ?";
+            String sql = "UPDATE proyecto SET motivoCancelacion = ?, estadoProyecto = 'Cancelado' WHERE idProyecto = ?";
             PreparedStatement ps = this.getCon().prepareStatement(sql);
             ps.setString(1, razon);
             ps.setInt(2, id);
