@@ -32,6 +32,18 @@
         <servlet-name>MunServlet</servlet-name>
         <servlet-class>com.controlador.MunServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeptoServlet</servlet-name>
+        <servlet-class>com.controlador.DeptoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProyectoServlet</servlet-name>
+        <servlet-class>com.controlador.ProyectoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CancelServlet</servlet-name>
+        <servlet-class>com.controlador.CancelServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -63,6 +75,18 @@
     <servlet-mapping>
         <servlet-name>MunServlet</servlet-name>
         <url-pattern>/MunServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeptoServlet</servlet-name>
+        <url-pattern>/DeptoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProyectoServlet</servlet-name>
+        <url-pattern>/ProyectoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CancelServlet</servlet-name>
+        <url-pattern>/CancelServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
