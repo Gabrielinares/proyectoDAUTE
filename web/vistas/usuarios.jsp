@@ -92,6 +92,7 @@
                                             <th>Usuario</th>
                                             <th>Contrase&ntilde;a</th>
                                             <th>Estado</th>
+                                            <th>Foto</th>
                                             <th>Acciones</th>
 
                                         </tr>
@@ -102,6 +103,7 @@
                                             <th>Usuario</th>
                                             <th>Contrase&ntilde;a</th>
                                             <th>Estado</th>
+                                            <th>Foto</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </tfoot>
@@ -124,6 +126,7 @@
                                             <td class="usuario"><%= elem.getUsername()%></td>
                                             <td class="contra"><%= elem.getPassw()%></td>
                                             <td class="estado"><%= estado%></td>
+                                            <td> <img src="${pageContext.servletContext.contextPath}/fotoPerfil?id=<%=elem.getIdUser() %>" alt="Foto de perfil" height="90" width="90" /> </td>
                                             <td>
                                                 <button type="button" class="btn btn-dark btnEditar" data-toggle="modal" data-target="#exampleModal">Editar</button>
                                                 <button type="button" class="btn btn-danger btnEliminar" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
