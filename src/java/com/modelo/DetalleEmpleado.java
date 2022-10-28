@@ -4,14 +4,16 @@
  */
 package com.modelo;
 
+import java.sql.Date;
+
 /**
  *
  * @author gabriel
  */
 public class DetalleEmpleado {
     private int idDE;
-    private String fechaInicio;
-    private String fechaFin;
+    private Date fechaInicio;
+    private Date fechaFin;
     private int ProyId;
     private int EmpDui;
     private String proyecto;
@@ -21,7 +23,7 @@ public class DetalleEmpleado {
         
     }
 
-    public DetalleEmpleado(int idDE, String fechaInicio, String fechaFin, int ProyId, int EmpDui) {
+    public DetalleEmpleado(int idDE, Date fechaInicio, Date fechaFin, int ProyId, int EmpDui) {
         this.idDE = idDE;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
@@ -37,19 +39,19 @@ public class DetalleEmpleado {
         this.idDE = idDE;
     }
 
-    public String getFechaInicio() {
+    public Date getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(String fechaInicio) {
+    public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public String getFechaFin() {
+    public Date getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(String fechaFin) {
+    public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
 

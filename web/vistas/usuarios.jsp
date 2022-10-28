@@ -92,6 +92,7 @@
                                             <th>Usuario</th>
                                             <th>Contrase&ntilde;a</th>
                                             <th>Estado</th>
+                                            <th>Foto</th>
                                             <th>Acciones</th>
 
                                         </tr>
@@ -102,6 +103,7 @@
                                             <th>Usuario</th>
                                             <th>Contrase&ntilde;a</th>
                                             <th>Estado</th>
+                                            <th>Foto</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </tfoot>
@@ -124,6 +126,7 @@
                                             <td class="usuario"><%= elem.getUsername()%></td>
                                             <td class="contra"><%= elem.getPassw()%></td>
                                             <td class="estado"><%= estado%></td>
+                                            <td> <img src="${pageContext.servletContext.contextPath}/fotoPerfil?id=<%=elem.getIdUser() %>" alt="Foto de perfil" height="90" width="90" /> </td>
                                             <td>
                                                 <button type="button" class="btn btn-dark btnEditar" data-toggle="modal" data-target="#exampleModal">Editar</button>
                                                 <button type="button" class="btn btn-danger btnEliminar" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
@@ -167,17 +170,17 @@
                                 </div>
                                 <div class="col-6">
                                     <label>Usuario</label>
-                                    <input type="text" name="txtUser" class="form-control" id="txtUser">
+                                    <input type="text" name="txtUser" class="form-control" id="txtUser" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label>Contrase&ntilde;a</label>
-                                    <input type="text" name="txtPass" class="form-control" id="txtPass">
+                                    <input type="text" name="txtPass" class="form-control" id="txtPass" required>
                                 </div>
                                 <div class="col-6">
-                                    <label>Categoría</label><br>
-                                    <select name="txtEstado" id="txtEstado" class="form-select">
+                                    <label>Estado</label><br>
+                                    <select name="txtEstado" id="txtEstado" class="form-select" required>
                                         <option value="3">Seleccionar...</option>
                                         <option value="0">Inactivo</option>
                                         <option value="1">Activo</option>
@@ -187,7 +190,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label>Foto</label>
-                                    <input type="file" name="foto">
+                                    <input type="file" name="foto" required>
                                 </div>
                             </div>
                             <br>

@@ -4,12 +4,10 @@
  */
 package com.controlador;
 
-import com.dao.DetalleMaquinariaDAO;
-import com.modelo.DetalleMaquinaria;
+import com.dao.DepartamentoDAO;
+import com.modelo.Departamento;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author gabriel
  */
-public class DMServlet extends HttpServlet {
+public class DeptoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,38 +33,34 @@ public class DMServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            int codigo = Integer.parseInt(request.getParameter("txtCodigo"));
-            Date fechaI = Date.valueOf(request.getParameter("txtFechaI"));
-            Date fechaF = Date.valueOf(request.getParameter("txtFechaF"));
-            int ProyId = Integer.parseInt(request.getParameter("txtProy"));
-            int MaqId = Integer.parseInt(request.getParameter("txtMaq"));
+            int id = Integer.parseInt(request.getParameter("txtCodigo"));
+            String nombre = request.getParameter("txtNombre");
             
             int res = 0;
             String msj = "";
             
-            DetalleMaquinariaDAO dmdao = new DetalleMaquinariaDAO();
-            DetalleMaquinaria dm = new DetalleMaquinaria(codigo, fechaI, fechaF, ProyId, MaqId);
+            DepartamentoDAO ddao = new DepartamentoDAO();
+            Departamento d = new Departamento(id, nombre);
             
             if(request.getParameter("btnGuardar") != null){
-                res = dmdao.agregarDM(dm);
+                res = ddao.agregarDepto(d);
                 if(res != 0){
                     msj = "Registro agregado";
                 }
             } else if(request.getParameter("btnEditar") != null){
-                res = dmdao.modificarDM(dm);
+                res = ddao.modificarDepto(d);
                 if(res != 0){
-                    msj = "Registro editado";
+                    msj = "Registro modificado";
                 }
             } else if(request.getParameter("btnEliminar") != null){
-                res = dmdao.eliminarDM(dm);
+                res = ddao.eliminarDepto(d);
                 if(res != 0){
                     msj = "Registro eliminado";
                 }
             }
+            
             request.setAttribute("message", msj);
-            request.getRequestDispatcher("/vistas/detallemaquinaria.jsp").forward(request, response);
-        } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
+            request.getRequestDispatcher("/vistas/departamento.jsp").forward(request, response);
         }
     }
 

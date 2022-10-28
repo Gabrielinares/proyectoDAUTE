@@ -160,7 +160,7 @@
                                 </div>
                                 <div class="col-6">
                                     <label>Nombre</label>
-                                    <input type="text" name="txtNombre" class="form-control" id="txtNombre">
+                                    <input type="text" name="txtNombre" class="form-control" id="txtNombre" required>
                                 </div>
                             </div>
                             <br>
@@ -168,7 +168,7 @@
                                 <div class="col-6">
                                     <label>Departamento</label>
                                     <br>
-                                    <select name="txtDepto" id="txtDepto">
+                                    <select name="txtDepto" id="txtDepto" required>
                                         <%
                                             ArrayList<Departamento> lD = ddao.mostrarDeptos();
                                             

@@ -1,13 +1,14 @@
 <%-- 
-    Document   : detallemaquinaria
-    Created on : 24 oct. 2022, 18:24:23
+    Document   : departamento
+    Created on : 26 oct. 2022, 16:49:45
     Author     : gabriel
 --%>
 
-<%@page import="com.modelo.Maquinaria"%>
-<%@page import="com.dao.MaquinariaDAO"%>
-<%@page import="com.modelo.DetalleMaquinaria"%>
+<%@page import="com.modelo.Departamento"%>
+<%@page import="com.dao.DepartamentoDAO"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@include file="/template/session.jsp" %>
@@ -24,7 +25,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Gesti&oacute;n de maquinaria</title>
+        <title>Gesti&oacute;n de departamentos</title>
 
         <!-- Custom fonts for this template-->
         <link href="${pageContext.servletContext.contextPath}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -37,12 +38,13 @@
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.38/sweetalert2.min.css" />
 
+
     </head>
 
     <body id="page-top">
 
         <%
-            MaquinariaDAO mdao = new MaquinariaDAO();
+            DepartamentoDAO ddao = new DepartamentoDAO();
         %>
 
         <%@include file="../template/navbar.jsp" %>
@@ -59,14 +61,14 @@
                     <!-- Breadcrumbs-->
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="#">Maquinaria</a>
+                            <a href="#">Departamentos</a>
                         </li>
                         <li class="breadcrumb-item active">Overview</li>
                     </ol>
 
                     <div class="row">
                         <div class="col-lg-8">
-                            <h1>Gesti&oacute;n de maquinaria</h1>
+                            <h1>Gesti&oacute;n de departamentos</h1>
                         </div>
                         <div class="col-lg-4">
                             <button type="button" class="btn btn-success float-right btnAdd" data-toggle="modal" data-target="#exampleModal">Agregar</button>
@@ -88,8 +90,6 @@
                                         <tr>
                                             <th>C&oacute;digo</th>
                                             <th>Nombre</th>
-                                            <th>Descripci&oacute;n</th>
-                                            <th>Cantidad</th>
                                             <th>Acciones</th>
 
                                         </tr>
@@ -98,24 +98,19 @@
                                         <tr>
                                             <th>C&oacute;digo</th>
                                             <th>Nombre</th>
-                                            <th>Descripci&oacute;n</th>
-                                            <th>Cantidad</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </tfoot>
-                                    <tbody>
+                                    <tbody id="construirTabla">
                                         <%
-                                            ArrayList<Maquinaria> lista = mdao.mostraMaquinarias();
+                                            ArrayList<Departamento> lista = ddao.mostrarDeptos();
 
-                                            String estado = "";
+                                            for (Departamento elem : lista) {
 
-                                            for (Maquinaria elem : lista) {
                                         %>
                                         <tr>
-                                            <td class="codigo"><%= elem.getIdMaquinaria()%></td>
-                                            <td class="nombre"><%= elem.getNombreMaquinaria()%></td>
-                                            <td class="desc"><%= elem.getDesc()%></td>
-                                            <td class="cant"><%= elem.getCant()%></td>
+                                            <td class="codigo"><%= elem.getIdDepto()%></td>
+                                            <td class="nombre"><%= elem.getNombreDepto()%></td>
                                             <td>
                                                 <button type="button" class="btn btn-dark btnEditar" data-toggle="modal" data-target="#exampleModal">Editar</button>
                                                 <button type="button" class="btn btn-danger btnEliminar" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
@@ -147,29 +142,19 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Datos maquinaria</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Datos Departamento</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="${pageContext.servletContext.contextPath}/MaqServlet" method="POST" id="form">
+                        <form action="${pageContext.servletContext.contextPath}/DeptoServlet" method="post" id="form">
                             <div class="row">
                                 <div class="col-6">
                                     <label>Codigo</label>
-                                    <input type="text" name="txtCodigo" class="form-control" id="txtCodigo" value="0" readonly="true">
+                                    <input type="text" name="txtCodigo" class="form-control" id="txtCodigo" value="0" readonly="true" required>
                                 </div>
                                 <div class="col-6">
                                     <label>Nombre</label>
                                     <input type="text" name="txtNombre" class="form-control" id="txtNombre" required>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <label>Descripci&oacute;n</label>
-                                    <input type="text" name="txtDesc" class="form-control" id="txtDesc" required>
-                                </div>
-                                <div class="col-6">
-                                    <label>Cantidad</label><br>
-                                    <input type="number" name="txtCant" class="form-control" id="txtCant" required>
                                 </div>
                             </div>
                             <br>
@@ -204,10 +189,11 @@
         <!-- Demo scripts for this page-->
         <script src="${pageContext.servletContext.contextPath}/js/demo/datatables-demo.js"></script>
         <script src="${pageContext.servletContext.contextPath}/js/demo/chart-area-demo.js"></script>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.38/sweetalert2.all.min.js"></script>
 
-        <%
-            if (request.getAttribute("message") != null) {
+        <script src="${pageContext.servletContext.contextPath}/js/departamento.js"></script>
+        <%            if (request.getAttribute("message") != null) {
         %>
         <script>
             $(document).ready(function () {
@@ -223,8 +209,8 @@
         <%
             }
         %>
-
-        <script src="${pageContext.servletContext.contextPath}/js/maquinaria.js"></script>
     </body>
 
 </html>
+
+

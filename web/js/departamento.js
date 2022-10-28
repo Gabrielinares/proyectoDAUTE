@@ -5,30 +5,18 @@
 
 function llenarFormulario(fila) {
     var codigo = $(fila).find(".codigo").text();
-    var fechaI = $(fila).find(".fechaI").text();
-    var fechaF = $(fila).find(".fechaF").text();
-    var proyId = $(fila).find(".proy").text();
-    var maqId = $(fila).find(".maquinaria").text();
-
-    console.log(maqId);
-    console.log(proyId);
+    var nombre = $(fila).find(".nombre").text();
 
     $("#txtCodigo").val(codigo);
-    $("#txtFechaI").val(fechaI);
-    $("#txtFechaF").val(fechaF);
-    $("#txtProy option[selected]").removeAttr('selected');
-    $("#txtProy option:contains(" + proyId + ")").attr('selected', true);
+    $("#txtNombre").val(nombre);
 
-    $("#txtMaq option[selected]").removeAttr('selected');
-    $("#txtMaq option:contains(" + maqId + ")").attr('selected', true);
 }
+
 
 $(document).ready(function () {
 
     $("#exampleModal").on("hidden.bs.modal", function () {
         $('#form')[0].reset();
-        $("#txtProy option[selected]").removeAttr('selected');
-        $("#txtMaq option[selected]").removeAttr('selected');
 
     });
 

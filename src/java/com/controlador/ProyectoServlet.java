@@ -4,12 +4,10 @@
  */
 package com.controlador;
 
-import com.dao.DetalleMaquinariaDAO;
-import com.modelo.DetalleMaquinaria;
+import com.dao.ProyectoDAO;
+import com.modelo.Proyecto;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author gabriel
  */
-public class DMServlet extends HttpServlet {
+public class ProyectoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,37 +34,48 @@ public class DMServlet extends HttpServlet {
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             int codigo = Integer.parseInt(request.getParameter("txtCodigo"));
-            Date fechaI = Date.valueOf(request.getParameter("txtFechaI"));
-            Date fechaF = Date.valueOf(request.getParameter("txtFechaF"));
-            int ProyId = Integer.parseInt(request.getParameter("txtProy"));
-            int MaqId = Integer.parseInt(request.getParameter("txtMaq"));
+            String nombre = request.getParameter("txtNombre");
+            double costo = Double.parseDouble(request.getParameter("txtCosto"));
+            String estado = request.getParameter("txtEstado");
+            int depto = Integer.parseInt(request.getParameter("txtDepto"));
+            String razon = "";
+            int codigoC = 0;
             
             int res = 0;
             String msj = "";
             
-            DetalleMaquinariaDAO dmdao = new DetalleMaquinariaDAO();
-            DetalleMaquinaria dm = new DetalleMaquinaria(codigo, fechaI, fechaF, ProyId, MaqId);
+            ProyectoDAO pdao = new ProyectoDAO();
+            Proyecto p = new Proyecto(codigo, nombre, estado, costo, null, depto);
             
             if(request.getParameter("btnGuardar") != null){
-                res = dmdao.agregarDM(dm);
-                if(res != 0){
+                res = pdao.agregarProyecto(p);
+                if (res != 0){
                     msj = "Registro agregado";
                 }
             } else if(request.getParameter("btnEditar") != null){
-                res = dmdao.modificarDM(dm);
-                if(res != 0){
-                    msj = "Registro editado";
+                res = pdao.modificarProyecto(p);
+                if (res != 0){
+                    msj = "Registro modificado";
                 }
             } else if(request.getParameter("btnEliminar") != null){
-                res = dmdao.eliminarDM(dm);
-                if(res != 0){
+                res = pdao.eliminarProyecto(p);
+                if (res != 0){
                     msj = "Registro eliminado";
                 }
+            } else if(request.getParameter("btnCancelar") != null){
+                codigoC = Integer.parseInt(request.getParameter("txtCodigoC"));
+                razon = request.getParameter("txtCancel");
+                res = pdao.cancelarProyecto(razon, codigoC);
+                if (res != 0){
+                    msj = "Registro cancelado";
+                }
             }
+            
             request.setAttribute("message", msj);
-            request.getRequestDispatcher("/vistas/detallemaquinaria.jsp").forward(request, response);
-        } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
+            request.getRequestDispatcher("/vistas/proyecto.jsp").forward(request, response);
+            
+        } catch (Exception e){
+            System.out.println("Error: " + e.getMessage());
         }
     }
 

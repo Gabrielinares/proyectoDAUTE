@@ -165,21 +165,21 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label>Codigo</label>
-                                    <input type="text" name="txtCodigo" class="form-control" id="txtCodigo" value="0" readonly="true">
+                                    <input type="text" name="txtCodigo" class="form-control" id="txtCodigo" value="0" readonly="true" required>
                                 </div>
                                 <div class="col-6">
                                     <label>Fecha inicio</label>
-                                    <input type="date" name="txtFechaI" class="form-control" id="txtFechaI">
+                                    <input type="date" name="txtFechaI" class="form-control" id="txtFechaI" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label>Fecha final</label>
-                                    <input type="date" name="txtFechaF" class="form-control" id="txtFechaF">
+                                    <input type="date" name="txtFechaF" class="form-control" id="txtFechaF" required>
                                 </div>
                                 <div class="col-6">
                                     <label>Proyecto</label><br>
-                                    <select name="txtProy" id="txtProy" class="form-select">
+                                    <select name="txtProy" id="txtProy" class="form-select" required>
                                         <option value="0">Seleccionar proyecto...</option>
                                         <%
                                             ArrayList<Proyecto> lP = pdao.mostrarProyectos();
@@ -197,7 +197,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label>Maquinaria</label><br>
-                                    <select name="txtMaq" id="txtMaq" class="form-select">
+                                    <select name="txtMaq" id="txtMaq" class="form-select" required>
                                         <option value="0">Seleccionar maquinaria...</option>
                                         <%
                                             ArrayList<Maquinaria> lM = mdao.mostraMaquinarias();

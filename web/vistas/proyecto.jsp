@@ -1,12 +1,14 @@
 <%-- 
-    Document   : detallemaquinaria
-    Created on : 24 oct. 2022, 18:24:23
+    Document   : proyecto
+    Created on : 26 oct. 2022, 17:03:53
     Author     : gabriel
 --%>
 
-<%@page import="com.modelo.Maquinaria"%>
-<%@page import="com.dao.MaquinariaDAO"%>
-<%@page import="com.modelo.DetalleMaquinaria"%>
+
+<%@page import="com.modelo.Departamento"%>
+<%@page import="com.dao.DepartamentoDAO"%>
+<%@page import="com.modelo.Proyecto"%>
+<%@page import="com.dao.ProyectoDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -24,7 +26,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Gesti&oacute;n de maquinaria</title>
+        <title>Gesti&oacute;n de Proyectos</title>
 
         <!-- Custom fonts for this template-->
         <link href="${pageContext.servletContext.contextPath}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -41,8 +43,7 @@
 
     <body id="page-top">
 
-        <%
-            MaquinariaDAO mdao = new MaquinariaDAO();
+        <%            ProyectoDAO pdao = new ProyectoDAO();
         %>
 
         <%@include file="../template/navbar.jsp" %>
@@ -59,14 +60,14 @@
                     <!-- Breadcrumbs-->
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="#">Maquinaria</a>
+                            <a href="#">Proyectos</a>
                         </li>
                         <li class="breadcrumb-item active">Overview</li>
                     </ol>
 
                     <div class="row">
                         <div class="col-lg-8">
-                            <h1>Gesti&oacute;n de maquinaria</h1>
+                            <h1>Gesti&oacute;n de Proyectos</h1>
                         </div>
                         <div class="col-lg-4">
                             <button type="button" class="btn btn-success float-right btnAdd" data-toggle="modal" data-target="#exampleModal">Agregar</button>
@@ -86,39 +87,51 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>C&oacute;digo</th>
+                                            <th>Codigo</th>
                                             <th>Nombre</th>
-                                            <th>Descripci&oacute;n</th>
-                                            <th>Cantidad</th>
+                                            <th>Costo</th>
+                                            <th>Estado</th>
+                                            <th>Razon de cancelado</th>
+                                            <th>Departamento</th>
                                             <th>Acciones</th>
 
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>C&oacute;digo</th>
+                                            <th>Codigo</th>
                                             <th>Nombre</th>
-                                            <th>Descripci&oacute;n</th>
-                                            <th>Cantidad</th>
+                                            <th>Costo</th>
+                                            <th>Estado</th>
+                                            <th>Razon de cancelado</th>
+                                            <th>Departamento</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <%
-                                            ArrayList<Maquinaria> lista = mdao.mostraMaquinarias();
+                                            ArrayList<Proyecto> lista = pdao.mostrarProyectos();
 
-                                            String estado = "";
-
-                                            for (Maquinaria elem : lista) {
+                                            String motivo = "";
+                                            for (Proyecto elem : lista) {
+                                                if (elem.getMotivoCancel() == null || elem.getMotivoCancel() == "") {
+                                                    motivo = "Vigente";
+                                                } else {
+                                                    motivo = elem.getMotivoCancel();
+                                                }
                                         %>
                                         <tr>
-                                            <td class="codigo"><%= elem.getIdMaquinaria()%></td>
-                                            <td class="nombre"><%= elem.getNombreMaquinaria()%></td>
-                                            <td class="desc"><%= elem.getDesc()%></td>
-                                            <td class="cant"><%= elem.getCant()%></td>
-                                            <td>
+                                            <td class="id"><%= elem.getIdProy()%></td>
+                                            <td class="nombre"><%= elem.getNombreProy()%></td>
+                                            <td class="costo"><%= elem.getValorProy()%></td>
+                                            <td class="estado"><%= elem.getEstado()%></td>
+                                            <td class="rCancel"><%= motivo%></td>
+                                            <td class="depto"><%= elem.getDepto()%></td>
+                                            <td class="">
                                                 <button type="button" class="btn btn-dark btnEditar" data-toggle="modal" data-target="#exampleModal">Editar</button>
                                                 <button type="button" class="btn btn-danger btnEliminar" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
+                                                <br>
+                                                <button type="button" class="btn btn-warning btnCancelar" data-toggle="modal" data-target="#cancelModal">Cancelar</button>
                                             </td>
                                         </tr>
                                         <%
@@ -147,29 +160,52 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Datos maquinaria</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Datos Proyecto</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="${pageContext.servletContext.contextPath}/MaqServlet" method="POST" id="form">
+                        <form action="${pageContext.servletContext.contextPath}/ProyectoServlet" method="POST" id="form">
                             <div class="row">
                                 <div class="col-6">
                                     <label>Codigo</label>
-                                    <input type="text" name="txtCodigo" class="form-control" id="txtCodigo" value="0" readonly="true">
-                                </div>
-                                <div class="col-6">
-                                    <label>Nombre</label>
-                                    <input type="text" name="txtNombre" class="form-control" id="txtNombre" required>
+                                    <input type="text" name="txtCodigo" class="form-control" id="txtCodigo" value="0" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <label>Descripci&oacute;n</label>
-                                    <input type="text" name="txtDesc" class="form-control" id="txtDesc" required>
+                                    <label>Nombre</label>
+                                    <input type="text" name="txtNombre" class="form-control" id="txtNombre" required>
                                 </div>
                                 <div class="col-6">
-                                    <label>Cantidad</label><br>
-                                    <input type="number" name="txtCant" class="form-control" id="txtCant" required>
+                                    <label>Costo</label>
+                                    <input type="number" name="txtCosto" class="form-control" id="txtCosto" required>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>Estado</label><br>
+                                    <select name="txtEstado" id="txtEstado" class="form-select" required>
+                                        <option value="0">Seleccionar estado...</option>
+                                        <option value="Ingresado"> Ingresado </option>
+                                        <option value="Confirmado"> Confirmado </option>
+                                        <option value="Entregado"> Entregado </option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <label>Departamento</label><br>
+                                    <select name="txtDepto" id="txtDepto" class="form-select" required>
+                                        <option value="0">Seleccionar proyecto...</option>
+                                        <%
+                                            DepartamentoDAO ddao = new DepartamentoDAO();
+
+                                            ArrayList<Departamento> lD = ddao.mostrarDeptos();
+
+                                            for (Departamento elem : lD) {
+                                        %>
+                                        <option value="<%= elem.getIdDepto()%>"><%= elem.getNombreDepto()%></option>
+                                        <%}%>
+                                    </select>
                                 </div>
                             </div>
                             <br>
@@ -186,6 +222,41 @@
                 </div>
             </div>
         </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Cancelar Proyecto</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="${pageContext.servletContext.contextPath}/CancelServlet" method="POST" id="form">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>Codigo</label>
+                                    <input type="text" name="txtCodigoC" class="form-control" id="txtCodigoC" value="0" >
+                                </div>
+                                <div class="col-6">
+                                    <label>Razon</label>
+                                    <input type="text" name="txtCancel" class="form-control" id="txtCodigo" placeholder="Ingrese aqui el motivo de cancelacion" >
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-12">
+                                    <button type="submit" name="btnCancelar" class="btn btn-success btnOcultar1">Realizar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <!-- Bootstrap core JavaScript-->
         <script src="${pageContext.servletContext.contextPath}/vendor/jquery/jquery.min.js"></script>
         <script src="${pageContext.servletContext.contextPath}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -224,7 +295,7 @@
             }
         %>
 
-        <script src="${pageContext.servletContext.contextPath}/js/maquinaria.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/js/proyecto.js"></script>
     </body>
 
 </html>
