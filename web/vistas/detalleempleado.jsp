@@ -172,18 +172,18 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label>Fecha inicio</label>
-                                    <input type="date" name="txtFechaI" class="form-control" id="txtFechaI">
+                                    <input type="date" name="txtFechaI" class="form-control" id="txtFechaI" required>
                                 </div>
                                 <div class="col-6">
                                     <label>Fecha final</label>
-                                    <input type="date" name="txtFechaF" class="form-control" id="txtFechaF">
+                                    <input type="date" name="txtFechaF" class="form-control" id="txtFechaF" required>
                                 </div>
                                 
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label>Empleados</label><br>
-                                    <select name="txtEmp" id="txtEmp" class="form-select">
+                                    <select name="txtEmp" id="txtEmp" class="form-select" required>
                                         <option value="0">Seleccionar Empleado...</option>
                                         <%
                                             EmpleadoDAO edao = new EmpleadoDAO();
@@ -198,7 +198,7 @@
                                 </div>
                                     <div class="col-6">
                                     <label>Proyecto</label><br>
-                                    <select name="txtProy" id="txtProy" class="form-select">
+                                    <select name="txtProy" id="txtProy" class="form-select" required>
                                         <option value="0">Seleccionar proyecto...</option>
                                         <%
                                             ProyectoDAO pdao = new ProyectoDAO();

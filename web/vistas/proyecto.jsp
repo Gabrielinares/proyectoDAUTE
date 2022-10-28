@@ -168,24 +168,24 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label>Codigo</label>
-                                    <input type="text" name="txtCodigo" class="form-control" id="txtCodigo" value="0" >
+                                    <input type="text" name="txtCodigo" class="form-control" id="txtCodigo" value="0" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label>Nombre</label>
-                                    <input type="text" name="txtNombre" class="form-control" id="txtNombre">
+                                    <input type="text" name="txtNombre" class="form-control" id="txtNombre" required>
                                 </div>
                                 <div class="col-6">
                                     <label>Costo</label>
-                                    <input type="text" name="txtCosto" class="form-control" id="txtCosto">
+                                    <input type="number" name="txtCosto" class="form-control" id="txtCosto" required>
                                 </div>
 
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label>Estado</label><br>
-                                    <select name="txtEstado" id="txtEstado" class="form-select">
+                                    <select name="txtEstado" id="txtEstado" class="form-select" required>
                                         <option value="0">Seleccionar estado...</option>
                                         <option value="Ingresado"> Ingresado </option>
                                         <option value="Confirmado"> Confirmado </option>
@@ -194,7 +194,7 @@
                                 </div>
                                 <div class="col-6">
                                     <label>Departamento</label><br>
-                                    <select name="txtDepto" id="txtDepto" class="form-select">
+                                    <select name="txtDepto" id="txtDepto" class="form-select" required>
                                         <option value="0">Seleccionar proyecto...</option>
                                         <%
                                             DepartamentoDAO ddao = new DepartamentoDAO();

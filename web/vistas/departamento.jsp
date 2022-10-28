@@ -102,8 +102,8 @@
                                         </tr>
                                     </tfoot>
                                     <tbody id="construirTabla">
-                                        <%ArrayList<Departamento> 
-                                            lista = ddao.mostrarDeptos();
+                                        <%
+                                            ArrayList<Departamento> lista = ddao.mostrarDeptos();
 
                                             for (Departamento elem : lista) {
 
@@ -150,11 +150,11 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label>Codigo</label>
-                                    <input type="text" name="txtCodigo" class="form-control" id="txtCodigo" value="0" readonly="true">
+                                    <input type="text" name="txtCodigo" class="form-control" id="txtCodigo" value="0" readonly="true" required>
                                 </div>
                                 <div class="col-6">
                                     <label>Nombre</label>
-                                    <input type="text" name="txtNombre" class="form-control" id="txtNombre">
+                                    <input type="text" name="txtNombre" class="form-control" id="txtNombre" required>
                                 </div>
                             </div>
                             <br>

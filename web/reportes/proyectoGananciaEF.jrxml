@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8212e188-a2d5-495d-a549-a11f33030698">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="fecha1" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha2" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT p.idProyecto AS Codigo, p.nombreProyecto AS Proyecto, (p.costoProyecto - (SUM(e.salario))) as Ganancia, p.estadoProyecto AS Estado, d.nombreDepto as Deptartamento FROM proyecto AS p INNER JOIN detalleempleado AS de ON (de.proyectoId = p.idProyecto) INNER JOIN empleado as e ON (e.dui = de.empleadoDUI) INNER JOIN departamento AS d ON (d.idDepto = p.deptoId) WHERE de.fechaInicio > $P{fecha1} AND de.fechaFinal < $P{fecha2}]]>
+	</queryString>
+	<field name="Codigo" class="java.lang.Integer"/>
+	<field name="Proyecto" class="java.lang.String"/>
+	<field name="Ganancia" class="java.lang.Double"/>
+	<field name="Estado" class="java.lang.String"/>
+	<field name="Deptartamento" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="13" width="444" height="33" uuid="31ca3ed8-1274-457c-bb1e-a4901dd4ed73"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Reporte de ganancias de proyectos ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="100" y="46" width="174" height="22" uuid="35f5a681-8ad7-4d2a-91a2-2a670002d3c8"/>
+				<text><![CDATA[Entre 2 fechas]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="7e4fd4f1-e9a2-46a0-8942-99049edf7bd8"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="111" height="15" uuid="355dbb89-fb4e-48e7-a280-26d3bf25d55f"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="111" y="19" width="111" height="15" uuid="c3681781-966b-4b2c-8390-1ff5d39f2b61"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Proyecto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="222" y="19" width="111" height="15" uuid="7c53483d-d559-45be-8eb7-ae0cf20b5bf3"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Ganancia]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="333" y="19" width="111" height="15" uuid="c16b9672-6c92-4b6e-888a-8535e88d024e"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="444" y="19" width="111" height="15" uuid="cee35df4-6607-42ab-8abf-e32c4e6e7b75"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Deptartamento]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="e595b2c1-e681-42d6-adfd-d2f7d10d7fe8"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="111" height="15" uuid="db3a974e-5cc2-469a-84b6-855f6df0d2e8"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="111" y="0" width="111" height="15" uuid="8c9ab0d3-67c0-4888-b44f-24010ccb74ce"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Proyecto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="222" y="0" width="111" height="15" uuid="c0e8bef8-c5a9-4882-a1a5-75b365517e8f"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Ganancia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="333" y="0" width="111" height="15" uuid="890bbbd5-621f-4e16-ab3b-521add6e4fed"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="444" y="0" width="111" height="15" uuid="0129b71b-23d3-42d5-ae45-65989a452937"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Deptartamento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="9d72f483-59dc-4003-ae9d-634c50ea1eeb"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="88bd8830-9e82-4033-925c-80842db8f6da"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="1d18caf0-8ecd-4df0-8282-a4e3443d0663"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="020f0f2c-ed7f-4b3c-8f4c-51100434ab75"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
