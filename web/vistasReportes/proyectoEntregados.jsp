@@ -1,7 +1,7 @@
 <%-- 
-    Document   : proyectosGEF
-    Created on : 28 oct. 2022, 10:47:59
-    Author     : User
+    Document   : proyectoEntregados
+    Created on : 28 oct. 2022, 16:40:21
+    Author     : manmn
 --%>
 
 <%@page import="java.text.SimpleDateFormat"%>
@@ -75,12 +75,12 @@
 
                     <div class="row">
                         <div class="col-lg-12">
-                            <h1>Ganancia de proyectos entre 2 fechas</h1>
+                            <h1>Proyectos Entregados</h1>
                         </div>
                     </div>
                     <hr>
 
-                    <form action="proyectosGEF.jsp" method="post" id="form">
+                    <form action="proyectoEntregados.jsp" method="post" id="form">
                         <div class="row">
                             <div class="col-6">
                                 <label>Fecha inicial</label><br>
@@ -116,7 +116,7 @@
             if (request.getParameter("btnGenerar") != null) {
                 Conexion con = new Conexion();
                 con.conectar();
-                File reportFile = new File(application.getRealPath("reportes/proyectoERF.jasper"));
+                File reportFile = new File(application.getRealPath("reportes/proyectoEntregaRF.jasper"));
                 Map parametros = new HashMap();
 
                 String f1S = request.getParameter("txtFecha1");
@@ -184,4 +184,3 @@
     </body>
 
 </html>
-

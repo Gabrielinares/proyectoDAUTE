@@ -1,7 +1,7 @@
 <%-- 
-    Document   : proyectosGEF
-    Created on : 28 oct. 2022, 10:47:59
-    Author     : User
+    Document   : proyectoERF
+    Created on : 28 oct. 2022, 16:21:53
+    Author     : manmn
 --%>
 
 <%@page import="java.text.SimpleDateFormat"%>
@@ -75,12 +75,12 @@
 
                     <div class="row">
                         <div class="col-lg-12">
-                            <h1>Ganancia de proyectos entre 2 fechas</h1>
+                            <h1>Proyectos entre 2 fechas</h1>
                         </div>
                     </div>
                     <hr>
 
-                    <form action="proyectosGEF.jsp" method="post" id="form">
+                    <form action="proyectoERF.jsp" method="post" id="form">
                         <div class="row">
                             <div class="col-6">
                                 <label>Fecha inicial</label><br>
@@ -184,4 +184,3 @@
     </body>
 
 </html>
-
