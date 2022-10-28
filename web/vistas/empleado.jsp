@@ -170,33 +170,33 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label>DUI</label>
-                                    <input type="text" name="txtDui" class="form-control" id="txtDui">
+                                    <input type="number" name="txtDui" class="form-control" id="txtDui" required>
                                 </div>
                             </div> <br>
                             <div class="row">
                                 <div class="col-6">
                                     <label>Nombre</label>
-                                    <input type="text" name="txtNom" class="form-control" id="txtNom">
+                                    <input type="text" name="txtNom" class="form-control" id="txtNom" required>
                                 </div>
                                 <div class="col-6">
                                     <label>Apellido</label><br>
-                                    <input type="text" name="txtApe" class="form-control" id="txtApe">
+                                    <input type="text" name="txtApe" class="form-control" id="txtApe" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label>Salario</label>
-                                    <input type="text" name="txtSal" class="form-control" id="txtSal">
+                                    <input type="number" name="txtSal" class="form-control" id="txtSal" required>
                                 </div>
                                 <div class="col-6">
                                     <label>Telefono</label><br>
-                                    <input type="text" name="txtTel" class="form-control" id="txtTel">
+                                    <input type="number" name="txtTel" class="form-control" id="txtTel" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label>Disponibilidad</label><br>
-                                    <select name="txtDisp" id="txtDisp">
+                                    <select name="txtDisp" id="txtDisp" required>
                                         <option value="3"> Seleccione... </option>
                                         <option value="1"> Si </option>
                                         <option value="0"> No </option>

@@ -159,17 +159,17 @@
                                 </div>
                                 <div class="col-6">
                                     <label>Nombre</label>
-                                    <input type="text" name="txtNombre" class="form-control" id="txtNombre">
+                                    <input type="text" name="txtNombre" class="form-control" id="txtNombre" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label>Descripci&oacute;n</label>
-                                    <input type="text" name="txtDesc" class="form-control" id="txtDesc">
+                                    <input type="text" name="txtDesc" class="form-control" id="txtDesc" required>
                                 </div>
                                 <div class="col-6">
                                     <label>Cantidad</label><br>
-                                    <input type="number" name="txtCant" class="form-control" id="txtCant">
+                                    <input type="number" name="txtCant" class="form-control" id="txtCant" required>
                                 </div>
                             </div>
                             <br>

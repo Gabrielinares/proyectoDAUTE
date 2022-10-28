@@ -170,17 +170,17 @@
                                 </div>
                                 <div class="col-6">
                                     <label>Usuario</label>
-                                    <input type="text" name="txtUser" class="form-control" id="txtUser">
+                                    <input type="text" name="txtUser" class="form-control" id="txtUser" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <label>Contrase&ntilde;a</label>
-                                    <input type="text" name="txtPass" class="form-control" id="txtPass">
+                                    <input type="text" name="txtPass" class="form-control" id="txtPass" required>
                                 </div>
                                 <div class="col-6">
                                     <label>Estado</label><br>
-                                    <select name="txtEstado" id="txtEstado" class="form-select">
+                                    <select name="txtEstado" id="txtEstado" class="form-select" required>
                                         <option value="3">Seleccionar...</option>
                                         <option value="0">Inactivo</option>
                                         <option value="1">Activo</option>
@@ -190,7 +190,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label>Foto</label>
-                                    <input type="file" name="foto">
+                                    <input type="file" name="foto" required>
                                 </div>
                             </div>
                             <br>
