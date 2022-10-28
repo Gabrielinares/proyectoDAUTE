@@ -25,9 +25,14 @@
             <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/municipio.jsp">Municipios</a>
         </div>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Reportes</span></a>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-file"></i>
+            <span>Reportes</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <h6 class="dropdown-header">Visualizar:</h6>
+            <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistasReportes/proyectosED.jsp">Proyectos por estado y <br>departamento</a>
+        </div>
     </li>
 </ul>
