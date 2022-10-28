@@ -27,6 +27,8 @@
         <!-- Custom styles for this template-->
         <link href="css/sb-admin.css" rel="stylesheet">
 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.38/sweetalert2.min.css" />
+
     </head>
 
     <body class="bg-dark">
@@ -76,17 +78,37 @@
                 String nameUser = "";
                 InputStream pathFoto = null;
                 int idUser = 0;
+                int estado = 0;
                 for (Usuario elem : lista) {
                     idUser = elem.getIdUser();
                     nameUser = elem.getUsername();
                     pathFoto = elem.getPathFoto();
+                    estado = elem.getEstado();
                 }
+
                 //crear variables de sesion
-                session.setAttribute("id", idUser);
-                sesion.setAttribute("usuario", nameUser);
-                sesion.setAttribute("pathFoto", pathFoto);
-                sesion.setAttribute("logged_in", "activa");
-                response.sendRedirect("index.jsp");//redireccionar
+                if (estado == 1) {
+                    session.setAttribute("id", idUser);
+                    sesion.setAttribute("usuario", nameUser);
+                    sesion.setAttribute("pathFoto", pathFoto);
+                    sesion.setAttribute("logged_in", "activa");
+                    response.sendRedirect("index.jsp");//redireccionar
+                } else {
+        %>
+        <script>
+            $(document).ready(function () {
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'error',
+                    title: 'Usuario deshabilitado',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+            });
+        </script>
+        <%
+                }
+
             }
 
             //validacion para cerrar la sesion
@@ -95,6 +117,8 @@
                 response.sendRedirect("login.jsp");
             }
         %>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.38/sweetalert2.all.min.js"></script>
+
     </body>
 
 </html>
