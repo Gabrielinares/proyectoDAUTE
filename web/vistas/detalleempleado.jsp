@@ -119,12 +119,8 @@
                                             <td class="id"><%= elem.getIdDE()%></td>
                                             <td class="fechaI"><%= elem.getFechaInicio()%></td>
                                             <td class="fechaF"><%= elem.getFechaFin()%></td>
-                                            <td hidden class="proyold"><%= elem.getProyId()%></td>
                                             <td class="proy"><%= elem.getProyecto()%></td>
-                                            <td hidden class="empleadoDui"><%= elem.getEmpDui()%></td>
                                             <td  class="emp"><%= elem.getEmpleado()%></td>
-
-
                                             <td>
                                                 <button type="button" class="btn btn-dark btnEditar" data-toggle="modal" data-target="#exampleModal">Editar</button>
                                                 <button type="button" class="btn btn-danger btnEliminar" data-toggle="modal" data-target="#exampleModal">Eliminar</button>

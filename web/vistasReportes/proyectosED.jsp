@@ -4,13 +4,13 @@
     Author     : User
 --%>
 
+<%@page import="com.modelo.Municipio"%>
+<%@page import="com.dao.MunicipioDAO"%>
 <%@page import="net.sf.jasperreports.engine.JasperRunManager"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.io.File"%>
 <%@page import="com.conexion.Conexion"%>
-<%@page import="com.modelo.Departamento"%>
-<%@page import="com.dao.DepartamentoDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 
@@ -48,7 +48,8 @@
 
     <body id="page-top">
 
-        <%            DepartamentoDAO ddao = new DepartamentoDAO();
+        <%            
+            MunicipioDAO mdao = new MunicipioDAO();
         %>
 
         <%@include file="../template/navbar.jsp" %>
@@ -72,7 +73,7 @@
 
                     <div class="row">
                         <div class="col-lg-12">
-                            <h1>Proyectos por estado y departamento</h1>
+                            <h1>Proyectos por estado y municipio</h1>
                         </div>
                     </div>
                     <hr>
@@ -81,7 +82,7 @@
                         <div class="row">
                             <div class="col-6">
                                 <label>Estado</label><br>
-                                <select name="txtEstado" id="txtEstado" class="form-select">
+                                <select name="txtEstado" id="txtEstado" class="form-control">
                                     <option value="0">Seleccionar estado...</option>
                                     <option value="Ingresado"> Ingresado </option>
                                     <option value="Confirmado"> Confirmado </option>
@@ -91,14 +92,14 @@
                             </div>
                             <div class="col-6">
                                 <label>Departamento</label><br>
-                                <select name="txtDepto" class="form-select">
-                                    <option value="0">Seleccionar estado...</option>
+                                <select name="txtMun" class="form-control">
+                                    <option value="0">Seleccionar municipio...</option>
                                     <%
-                                        ArrayList<Departamento> lista = ddao.mostrarDeptos();
+                                        ArrayList<Municipio> lista = mdao.mostrarMunicipios();
 
-                                        for (Departamento elem : lista) {
+                                        for (Municipio elem : lista) {
                                     %>
-                                    <option value="<%= elem.getIdDepto()%>"> <%= elem.getNombreDepto()%> </option>
+                                    <option value="<%= elem.getIdMun()%>"> <%= elem.getNombreMun()%> </option>
                                     <% } %>
                                 </select>
                             </div>
@@ -131,10 +132,10 @@
                 Map parametros = new HashMap();
 
                 String estado = request.getParameter("txtEstado");
-                int depto = Integer.parseInt(request.getParameter("txtDepto"));
+                int muni = Integer.parseInt(request.getParameter("txtMun"));
 
                 parametros.put("estado", estado);
-                parametros.put("idDepto", depto);
+                parametros.put("munId", muni);
 
                 //agregar el jasper en binario
                 byte[] bytes = JasperRunManager.runReportToPdf(reportFile.getPath(), parametros, con.getCon());
