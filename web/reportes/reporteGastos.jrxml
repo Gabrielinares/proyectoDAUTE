@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="38254bd1-6823-4ef3-8d92-504a1ac77128">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT p.idProyecto AS Codigo, p.nombreProyecto AS Proyecto, count(e.dui) as Empleados ,sum(e.salario) AS Gasto, p.estadoProyecto AS Estado, m.nombreMun AS Municipio ,d.nombreDepto AS Departamento FROM proyecto AS p INNER JOIN detalleempleado AS de ON (de.proyectoId = p.idProyecto) INNER JOIN empleado as e ON (e.dui = de.empleadoDUI) INNER JOIN municipio AS m ON (m.idMunicipio = p.munId) INNER JOIN departamento AS d ON (d.idDepto = m.deptoId) GROUP By p.idProyecto;]]>
+	</queryString>
+	<field name="Codigo" class="java.lang.Integer"/>
+	<field name="Proyecto" class="java.lang.String"/>
+	<field name="Empleados" class="java.lang.Long"/>
+	<field name="Gasto" class="java.lang.Double"/>
+	<field name="Estado" class="java.lang.String"/>
+	<field name="Municipio" class="java.lang.String"/>
+	<field name="Departamento" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="13" width="274" height="33" uuid="bf3c0137-e2da-4ca3-876a-4bb31bea6094"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Reporte de proyectos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="100" y="46" width="174" height="22" uuid="2f08382c-450b-4a2b-9e8c-80e4a090b0b2"/>
+				<text><![CDATA[Mostrando los gastos]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="4e65dae6-e8ee-4159-ba12-026c3c280e0a"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="79" height="15" uuid="e208d418-8e97-4c03-bed2-d97fdccde533"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="79" y="19" width="79" height="15" uuid="292037ef-dea7-4e89-a989-b5c824153ea2"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Proyecto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="158" y="19" width="79" height="15" uuid="1150fe19-c1cb-45f4-af2b-b959736f11d7"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Empleados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="237" y="19" width="79" height="15" uuid="66352977-81fb-4ee7-b19b-31c20dde0c10"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Gasto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="316" y="19" width="79" height="15" uuid="55c030e3-6fb7-4d92-b64e-210ba22f71c3"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="395" y="19" width="79" height="15" uuid="54812e65-a949-4ddc-a5ac-57b36d1d276e"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Municipio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="474" y="19" width="79" height="15" uuid="209e7cce-97ad-48e4-8772-e6c30d8540f7"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Departamento]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="976b20df-90a3-4ff3-a490-36398f14a686"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="79" height="15" uuid="4d13d0e6-7802-44e9-9ce2-7c696ab7c840"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="79" y="0" width="79" height="15" uuid="1a8f8dbf-672a-4eca-8647-c9cd46f7ce8d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Proyecto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="158" y="0" width="79" height="15" uuid="e953223d-3ac1-49bb-858c-51fa1c2a2d81"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Empleados}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="237" y="0" width="79" height="15" uuid="b8c093c5-0231-4892-8bda-60c7dd9de28d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Gasto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="316" y="0" width="79" height="15" uuid="7c629cc6-eb8f-49b6-9db7-b90d05503744"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="395" y="0" width="79" height="15" uuid="9ea37394-d063-4b85-8247-f572863b31c2"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Municipio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="474" y="0" width="79" height="15" uuid="6a11f325-4130-4f18-8f2d-92a9fa47fb5d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Departamento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="dc1e81c9-745d-45d9-8cab-64b739efcc31"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="efbc3fbc-51e3-4453-be14-591a22ae1499"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="36a7f159-286a-4feb-812a-86827af166cb"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="7c785b97-4fc6-453d-8928-89c5f494c2a4"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

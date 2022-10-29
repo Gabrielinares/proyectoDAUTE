@@ -119,12 +119,8 @@
                                             <td class="id"><%= elem.getIdDE()%></td>
                                             <td class="fechaI"><%= elem.getFechaInicio()%></td>
                                             <td class="fechaF"><%= elem.getFechaFin()%></td>
-                                            <td hidden class="proyold"><%= elem.getProyId()%></td>
                                             <td class="proy"><%= elem.getProyecto()%></td>
-                                            <td hidden class="empleadoDui"><%= elem.getEmpDui()%></td>
                                             <td  class="emp"><%= elem.getEmpleado()%></td>
-
-
                                             <td>
                                                 <button type="button" class="btn btn-dark btnEditar" data-toggle="modal" data-target="#exampleModal">Editar</button>
                                                 <button type="button" class="btn btn-danger btnEliminar" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
@@ -183,7 +179,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label>Empleados</label><br>
-                                    <select name="txtEmp" id="txtEmp" class="form-select" required>
+                                    <select name="txtEmp" id="txtEmp" class="form-control" required>
                                         <option value="0">Seleccionar Empleado...</option>
                                         <%
                                             EmpleadoDAO edao = new EmpleadoDAO();
@@ -198,7 +194,7 @@
                                 </div>
                                     <div class="col-6">
                                     <label>Proyecto</label><br>
-                                    <select name="txtProy" id="txtProy" class="form-select" required>
+                                    <select name="txtProy" id="txtProy" class="form-control" required>
                                         <option value="0">Seleccionar proyecto...</option>
                                         <%
                                             ProyectoDAO pdao = new ProyectoDAO();

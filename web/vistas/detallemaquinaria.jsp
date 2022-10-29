@@ -179,7 +179,7 @@
                                 </div>
                                 <div class="col-6">
                                     <label>Proyecto</label><br>
-                                    <select name="txtProy" id="txtProy" class="form-select" required>
+                                    <select name="txtProy" id="txtProy" class="form-control" required>
                                         <option value="0">Seleccionar proyecto...</option>
                                         <%
                                             ArrayList<Proyecto> lP = pdao.mostrarProyectos();
@@ -197,7 +197,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label>Maquinaria</label><br>
-                                    <select name="txtMaq" id="txtMaq" class="form-select" required>
+                                    <select name="txtMaq" id="txtMaq" class="form-control" required>
                                         <option value="0">Seleccionar maquinaria...</option>
                                         <%
                                             ArrayList<Maquinaria> lM = mdao.mostraMaquinarias();

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="03b839d7-eee6-471b-8171-7602fa54d9d3">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1c6216a4-a689-4930-bb51-ddb06ecc7f58">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -14,12 +14,13 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT p.idProyecto AS ID, P.nombreProyecto AS Proyecto,p.costoProyecto AS Costo, p.estadoProyecto AS Estado, d.nombreDepto AS Departamento FROM proyecto AS p INNER JOIN departamento AS d ON (d.idDepto = p.deptoId) INNER JOIN detallemaquinaria AS dm ON (dm.proyectoId = p.idProyecto) WHERE dm.fechaInicio  > $P{fecha1} AND dm.fechaFinal < $P{fecha2} AND p.estadoProyecto = "Entregado"]]>
+		<![CDATA[SELECT p.idProyecto AS ID, P.nombreProyecto AS Proyecto,p.costoProyecto AS Costo, p.estadoProyecto AS Estado, m.nombreMun AS Municipio, d.nombreDepto AS Departamento FROM proyecto AS p INNER JOIN municipio AS m ON (m.idMunicipio = p.munId) INNER JOIN departamento AS d ON (d.idDepto = m.deptoId) INNER JOIN detallemaquinaria AS dm ON (dm.proyectoId = p.idProyecto) INNER JOIN detalleempleado AS de ON (de.proyectoId = p.idProyecto) WHERE de.fechaInicio > $P{fecha1} AND de.fechaFinal < $P{fecha2} AND p.estadoProyecto = "Entregado" GROUP BY p.idProyecto;]]>
 	</queryString>
 	<field name="ID" class="java.lang.Integer"/>
 	<field name="Proyecto" class="java.lang.String"/>
 	<field name="Costo" class="java.lang.Double"/>
 	<field name="Estado" class="java.lang.String"/>
+	<field name="Municipio" class="java.lang.String"/>
 	<field name="Departamento" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -27,13 +28,13 @@
 	<title>
 		<band height="70" splitType="Stretch">
 			<staticText>
-				<reportElement style="Title" x="0" y="13" width="297" height="33" uuid="531b9734-6d21-4fb8-886d-dadac79b62c3"/>
+				<reportElement style="Title" x="0" y="13" width="276" height="33" uuid="34c4bcc4-4101-466d-8fa9-df6341352dfa"/>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Reporte de Proyectos]]></text>
+				<text><![CDATA[Reporte de proyectos]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="SubTitle" x="100" y="46" width="208" height="22" uuid="8b172c06-942f-473a-86b4-9737684cdf6e"/>
-				<text><![CDATA[Entregados entre fechas]]></text>
+				<reportElement style="SubTitle" x="100" y="46" width="174" height="22" uuid="b4c82295-ff1e-4edb-b26d-38418fd3a9cc"/>
+				<text><![CDATA[Entregados]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -43,33 +44,38 @@
 	<columnHeader>
 		<band height="36" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="30565134-6651-4c1c-a740-55c33d5bb43a"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="d927deeb-077c-4178-958d-5ee78efebf76"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement style="Column header" x="0" y="19" width="111" height="15" uuid="b39086a7-b0bf-469f-bc1c-c4fb8afa0da4"/>
+				<reportElement style="Column header" x="0" y="19" width="92" height="15" uuid="f814f8bf-b2a3-43d6-8f08-9b73de4ff20c"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="111" y="19" width="111" height="15" uuid="eac8c90c-a1ef-4d1d-9489-50a9f02f18e7"/>
+				<reportElement style="Column header" x="92" y="19" width="92" height="15" uuid="77d8a446-e32f-4c89-8349-c6fd7974a6c7"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Proyecto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="222" y="19" width="111" height="15" uuid="949bbad2-6c80-48af-bd56-197f6ef31646"/>
+				<reportElement style="Column header" x="184" y="19" width="92" height="15" uuid="1cd66066-f38f-49a0-a6c2-41978adae2af"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Costo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="333" y="19" width="111" height="15" uuid="d8c80985-9007-4cc0-bc19-d5e866ecc9cd"/>
+				<reportElement style="Column header" x="276" y="19" width="92" height="15" uuid="c0551927-a396-4faa-886b-7931228229a6"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Estado]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="444" y="19" width="111" height="15" uuid="ab9753a1-e09b-4787-8f5f-da8901db7aa7"/>
+				<reportElement style="Column header" x="368" y="19" width="92" height="15" uuid="724925c1-1254-43ef-af14-3b4c0c70a5e4"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Municipio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="460" y="19" width="92" height="15" uuid="53f9c436-31c6-46df-9db9-afa894f47d18"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Departamento]]></text>
 			</staticText>
@@ -78,33 +84,38 @@
 	<detail>
 		<band height="16" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="0b4bbf6c-cf19-4b95-ab4e-279061cef73f"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="9cd92b3a-dc58-4543-b75b-a0efe9bc02b8"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement style="Detail" x="0" y="0" width="111" height="15" uuid="41b6a471-7ba9-41d9-9e01-74c2bf759d07"/>
+				<reportElement style="Detail" x="0" y="0" width="92" height="15" uuid="7e21efca-782e-4231-b6e7-b137e21674d0"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{ID}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="111" y="0" width="111" height="15" uuid="edd16011-0144-4ee8-a9c3-9f876a6096b9"/>
+				<reportElement style="Detail" x="92" y="0" width="92" height="15" uuid="a9dad87c-f862-4fdf-91f1-e35d7d2305c5"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{Proyecto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="222" y="0" width="111" height="15" uuid="ca7ecbc2-c6b8-4469-a800-c7ea1dc18118"/>
+				<reportElement style="Detail" x="184" y="0" width="92" height="15" uuid="6804eed9-02f2-43e4-a831-f5666a6ac8fc"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{Costo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="333" y="0" width="111" height="15" uuid="995c6c4a-4dad-4c44-ba28-75345a25f744"/>
+				<reportElement style="Detail" x="276" y="0" width="92" height="15" uuid="1c6ead2a-23b4-4b13-b8e1-397af8c89b7f"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{Estado}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="444" y="0" width="111" height="15" uuid="0568d13c-a4d9-4dde-aeb7-322c7967cf86"/>
+				<reportElement style="Detail" x="368" y="0" width="92" height="15" uuid="64c0f0c9-f9f2-4cf6-b227-1fd92280f1cc"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Municipio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="460" y="0" width="92" height="15" uuid="861aa760-5c7d-457e-976b-98410afdeaa3"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{Departamento}]]></textFieldExpression>
 			</textField>
@@ -113,7 +124,7 @@
 	<columnFooter>
 		<band height="45" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="eee6a217-0ce5-4ff1-9e71-6b7d762d82cd"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="cd4e2614-78a0-404a-975f-c0535a677bf2"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
@@ -123,21 +134,21 @@
 	<pageFooter>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="5332ab86-fae6-478a-b4bf-8e578c723264"/>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="1d07c1ea-8509-4d5c-9b2a-ae23b1ab37b9"/>
 				<textElement textAlignment="Right">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="017052a9-3be5-4a8f-b564-b2c46129b9c0"/>
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="babdef62-78e5-409d-9ead-37cc811e1c8a"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="75b0c872-8675-45a7-a114-dcb7a49ca5f9"/>
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="c87c9244-4c3f-4de1-b426-ce78c2f76eae"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>

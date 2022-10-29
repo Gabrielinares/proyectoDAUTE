@@ -14,7 +14,8 @@ public class Proyecto {
     private String estado;
     private double valorProy;
     private String motivoCancel;
-    private int deptoId;
+    private int munId;
+    private String muni;
     private String depto;
     
     public Proyecto(){
@@ -27,7 +28,7 @@ public class Proyecto {
         this.estado = estado;
         this.valorProy = valorProy;
         this.motivoCancel = motivoCancel;
-        this.deptoId = deptoId;
+        this.munId = deptoId;
     }
 
     public int getIdProy() {
@@ -70,20 +71,30 @@ public class Proyecto {
         this.motivoCancel = motivoCancel;
     }
 
-    public int getDeptoId() {
-        return deptoId;
+    public int getMunId() {
+        return munId;
     }
 
-    public void setDeptoId(int deptoId) {
-        this.deptoId = deptoId;
+    public void setMunId(int munId) {
+        this.munId = munId;
     }
 
+    
+    
     public String getDepto() {
         return depto;
     }
 
     public void setDepto(String depto) {
         this.depto = depto;
+    }
+
+    public String getMuni() {
+        return muni;
+    }
+
+    public void setMuni(String muni) {
+        this.muni = muni;
     }
     
     

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8212e188-a2d5-495d-a549-a11f33030698">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="521859fb-c133-4225-8688-a5aab29422c8">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -14,12 +14,13 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT p.idProyecto AS Codigo, p.nombreProyecto AS Proyecto, (p.costoProyecto - (SUM(e.salario))) as Ganancia, p.estadoProyecto AS Estado, d.nombreDepto as Deptartamento FROM proyecto AS p INNER JOIN detalleempleado AS de ON (de.proyectoId = p.idProyecto) INNER JOIN empleado as e ON (e.dui = de.empleadoDUI) INNER JOIN departamento AS d ON (d.idDepto = p.deptoId) WHERE de.fechaInicio > $P{fecha1} AND de.fechaFinal < $P{fecha2}]]>
+		<![CDATA[SELECT p.idProyecto AS Codigo, p.nombreProyecto AS Proyecto, (p.costoProyecto - (SUM(e.salario))) as Ganancia, p.estadoProyecto AS Estado, m.nombreMun AS Municipio, d.nombreDepto as Deptartamento FROM proyecto AS p INNER JOIN municipio AS m ON (m.idMunicipio = p.munId) INNER JOIN detalleempleado AS de ON (de.proyectoId = p.idProyecto) INNER JOIN empleado as e ON (e.dui = de.empleadoDUI) INNER JOIN departamento AS d ON (d.idDepto = m.deptoId) WHERE de.fechaInicio > $P{fecha1} AND de.fechaFinal < $P{fecha2} AND p.estadoProyecto = "Entregado" GROUP BY p.idProyecto;]]>
 	</queryString>
 	<field name="Codigo" class="java.lang.Integer"/>
 	<field name="Proyecto" class="java.lang.String"/>
 	<field name="Ganancia" class="java.lang.Double"/>
 	<field name="Estado" class="java.lang.String"/>
+	<field name="Municipio" class="java.lang.String"/>
 	<field name="Deptartamento" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -27,13 +28,13 @@
 	<title>
 		<band height="70" splitType="Stretch">
 			<staticText>
-				<reportElement style="Title" x="0" y="13" width="444" height="33" uuid="31ca3ed8-1274-457c-bb1e-a4901dd4ed73"/>
+				<reportElement style="Title" x="0" y="13" width="289" height="33" uuid="b2ae39b0-7590-4922-b0a2-e97d02bb4443"/>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Reporte de ganancias de proyectos ]]></text>
+				<text><![CDATA[Reporte de proyectos]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="SubTitle" x="100" y="46" width="174" height="22" uuid="35f5a681-8ad7-4d2a-91a2-2a670002d3c8"/>
-				<text><![CDATA[Entre 2 fechas]]></text>
+				<reportElement style="SubTitle" x="100" y="46" width="249" height="22" uuid="6dac1554-357a-4fc8-82cc-3bb3429a6255"/>
+				<text><![CDATA[Ganancia de los entregados]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -43,33 +44,38 @@
 	<columnHeader>
 		<band height="36" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="7e4fd4f1-e9a2-46a0-8942-99049edf7bd8"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="9dbddd21-8188-490d-8c83-295c2a2112d8"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement style="Column header" x="0" y="19" width="111" height="15" uuid="355dbb89-fb4e-48e7-a280-26d3bf25d55f"/>
+				<reportElement style="Column header" x="0" y="19" width="92" height="15" uuid="c8bf196e-efbc-46d9-b211-1de5f59c4793"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Codigo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="111" y="19" width="111" height="15" uuid="c3681781-966b-4b2c-8390-1ff5d39f2b61"/>
+				<reportElement style="Column header" x="92" y="19" width="92" height="15" uuid="7e937fd2-a6a9-43a3-ba11-30e8943b474b"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Proyecto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="222" y="19" width="111" height="15" uuid="7c53483d-d559-45be-8eb7-ae0cf20b5bf3"/>
+				<reportElement style="Column header" x="184" y="19" width="92" height="15" uuid="d1835e98-22d2-498c-9948-13e67184e267"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Ganancia]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="333" y="19" width="111" height="15" uuid="c16b9672-6c92-4b6e-888a-8535e88d024e"/>
+				<reportElement style="Column header" x="276" y="19" width="92" height="15" uuid="a43ab8f7-be8b-4de1-9aed-1dc541504061"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Estado]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="444" y="19" width="111" height="15" uuid="cee35df4-6607-42ab-8abf-e32c4e6e7b75"/>
+				<reportElement style="Column header" x="368" y="19" width="92" height="15" uuid="5af92747-57d4-4789-a018-11954a674ed4"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Municipio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="460" y="19" width="92" height="15" uuid="70922d0a-0337-4825-883b-5663a3d69d72"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Deptartamento]]></text>
 			</staticText>
@@ -78,33 +84,38 @@
 	<detail>
 		<band height="16" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="e595b2c1-e681-42d6-adfd-d2f7d10d7fe8"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="8132bcce-0e9a-46b0-874d-723ff05f4f2e"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement style="Detail" x="0" y="0" width="111" height="15" uuid="db3a974e-5cc2-469a-84b6-855f6df0d2e8"/>
+				<reportElement style="Detail" x="0" y="0" width="92" height="15" uuid="3323b727-7f0e-4023-9f60-84a3a52b1a53"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{Codigo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="111" y="0" width="111" height="15" uuid="8c9ab0d3-67c0-4888-b44f-24010ccb74ce"/>
+				<reportElement style="Detail" x="92" y="0" width="92" height="15" uuid="81c430c9-d130-4883-a5fb-79b443d6b9e6"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{Proyecto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="222" y="0" width="111" height="15" uuid="c0e8bef8-c5a9-4882-a1a5-75b365517e8f"/>
+				<reportElement style="Detail" x="184" y="0" width="92" height="15" uuid="ccb55e7f-bb93-450d-829d-f109fd492472"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{Ganancia}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="333" y="0" width="111" height="15" uuid="890bbbd5-621f-4e16-ab3b-521add6e4fed"/>
+				<reportElement style="Detail" x="276" y="0" width="92" height="15" uuid="e0aaf654-f14f-4f5c-a2a1-d43fbad9ce4b"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{Estado}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="444" y="0" width="111" height="15" uuid="0129b71b-23d3-42d5-ae45-65989a452937"/>
+				<reportElement style="Detail" x="368" y="0" width="92" height="15" uuid="fd44953a-5421-488e-8735-c8c311b9a0f5"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Municipio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="460" y="0" width="92" height="15" uuid="f1d9acca-7757-4b5f-b773-573ad700c271"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{Deptartamento}]]></textFieldExpression>
 			</textField>
@@ -113,7 +124,7 @@
 	<columnFooter>
 		<band height="45" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="9d72f483-59dc-4003-ae9d-634c50ea1eeb"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="e2f99edf-6413-4147-a320-7152dd027c32"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
@@ -123,21 +134,21 @@
 	<pageFooter>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="88bd8830-9e82-4033-925c-80842db8f6da"/>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="b8315056-18fa-4ab1-8c3b-9c1f4602de59"/>
 				<textElement textAlignment="Right">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="1d18caf0-8ecd-4df0-8282-a4e3443d0663"/>
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="1fe29f0f-db92-42c3-a30c-bd2ec08332bf"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="020f0f2c-ed7f-4b3c-8f4c-51100434ab75"/>
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="8ebd5675-8caa-45ba-a022-83f701073fd8"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>

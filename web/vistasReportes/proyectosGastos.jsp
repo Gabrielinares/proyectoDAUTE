@@ -20,7 +20,7 @@
         <%
             Conexion con = new Conexion();
             con.conectar();
-            File reportFile = new File(application.getRealPath("reportes/proyectoGastos.jasper"));
+            File reportFile = new File(application.getRealPath("reportes/reporteGastos.jasper"));
             Map parametros = new HashMap();
 
             //String estado = request.getParameter("txtEstado");

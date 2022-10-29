@@ -84,11 +84,11 @@
                         <div class="row">
                             <div class="col-6">
                                 <label>Fecha inicial</label><br>
-                                <input type="date" name="txtFecha1">
+                                <input type="date" name="txtFecha1" class="form-control">
                             </div>
                             <div class="col-6">
                                 <label>Fecha final</label><br>
-                                <input type="date" name="txtFecha2">
+                                <input type="date" name="txtFecha2" class="form-control">
 
                             </div>
                         </div>
@@ -116,7 +116,7 @@
             if (request.getParameter("btnGenerar") != null) {
                 Conexion con = new Conexion();
                 con.conectar();
-                File reportFile = new File(application.getRealPath("reportes/proyectoERF.jasper"));
+                File reportFile = new File(application.getRealPath("reportes/proyectoGananciaEF.jasper"));
                 Map parametros = new HashMap();
 
                 String f1S = request.getParameter("txtFecha1");

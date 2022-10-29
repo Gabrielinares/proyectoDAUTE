@@ -196,7 +196,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label>Disponibilidad</label><br>
-                                    <select name="txtDisp" id="txtDisp" required>
+                                    <select name="txtDisp" class="form-control" id="txtDisp" required>
                                         <option value="3"> Seleccione... </option>
                                         <option value="1"> Si </option>
                                         <option value="0"> No </option>

@@ -84,11 +84,11 @@
                         <div class="row">
                             <div class="col-6">
                                 <label>Fecha inicial</label><br>
-                                <input type="date" name="txtFecha1">
+                                <input type="date" name="txtFecha1" class="form-control">
                             </div>
                             <div class="col-6">
                                 <label>Fecha final</label><br>
-                                <input type="date" name="txtFecha2">
+                                <input type="date" name="txtFecha2" class="form-control">
 
                             </div>
                         </div>

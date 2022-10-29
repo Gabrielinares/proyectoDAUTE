@@ -180,7 +180,7 @@
                                 </div>
                                 <div class="col-6">
                                     <label>Estado</label><br>
-                                    <select name="txtEstado" id="txtEstado" class="form-select" required>
+                                    <select name="txtEstado" id="txtEstado" class="form-control" required>
                                         <option value="3">Seleccionar...</option>
                                         <option value="0">Inactivo</option>
                                         <option value="1">Activo</option>
@@ -190,7 +190,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label>Foto</label>
-                                    <input type="file" name="foto" required>
+                                    <input type="file" name="foto" class="form-control">
                                 </div>
                             </div>
                             <br>

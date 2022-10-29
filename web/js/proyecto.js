@@ -9,7 +9,7 @@ function llenarFormulario(fila) {
     var nombre = $(fila).find(".nombre").text();
     var costo = $(fila).find(".costo").text();
     var estado = $(fila).find(".estado").text();
-    var rCancel = $(fila).find(".rCancel").text();
+    var muni = $(fila).find(".muni").text();
     var depto = $(fila).find(".depto").text();
 
 
@@ -19,8 +19,8 @@ function llenarFormulario(fila) {
 
     $("#txtEstado option[selected]").removeAttr('selected');
     $("#txtEstado option:contains(" + estado + ")").attr('selected', true);
-    $("#txtDepto option[selected]").removeAttr('selected');
-    $("#txtDepto option:contains(" + depto + ")").attr('selected', true);
+    $("#txtMuni option[selected]").removeAttr('selected');
+    $("#txtMuni option:contains(" + muni + ")").attr('selected', true);
 
 }
 
@@ -34,7 +34,7 @@ $(document).ready(function () {
 
     $("#exampleModal").on("hidden.bs.modal", function () {
         $('#form')[0].reset();
-        $("#txtDepto option[selected]").removeAttr('selected');
+        $("#txtMuni option[selected]").removeAttr('selected');
 
     });
 
