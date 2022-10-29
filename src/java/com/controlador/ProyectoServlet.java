@@ -37,7 +37,7 @@ public class ProyectoServlet extends HttpServlet {
             String nombre = request.getParameter("txtNombre");
             double costo = Double.parseDouble(request.getParameter("txtCosto"));
             String estado = request.getParameter("txtEstado");
-            int depto = Integer.parseInt(request.getParameter("txtDepto"));
+            int muni = Integer.parseInt(request.getParameter("txtMuni"));
             String razon = "";
             int codigoC = 0;
             
@@ -45,7 +45,7 @@ public class ProyectoServlet extends HttpServlet {
             String msj = "";
             
             ProyectoDAO pdao = new ProyectoDAO();
-            Proyecto p = new Proyecto(codigo, nombre, estado, costo, null, depto);
+            Proyecto p = new Proyecto(codigo, nombre, estado, costo, null, muni);
             
             if(request.getParameter("btnGuardar") != null){
                 res = pdao.agregarProyecto(p);

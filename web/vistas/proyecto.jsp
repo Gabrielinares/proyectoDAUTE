@@ -5,6 +5,8 @@
 --%>
 
 
+<%@page import="com.modelo.Municipio"%>
+<%@page import="com.dao.MunicipioDAO"%>
 <%@page import="com.modelo.Departamento"%>
 <%@page import="com.dao.DepartamentoDAO"%>
 <%@page import="com.modelo.Proyecto"%>
@@ -92,6 +94,7 @@
                                             <th>Costo</th>
                                             <th>Estado</th>
                                             <th>Razon de cancelado</th>
+                                            <th>Municipio</th>
                                             <th>Departamento</th>
                                             <th>Acciones</th>
 
@@ -104,6 +107,7 @@
                                             <th>Costo</th>
                                             <th>Estado</th>
                                             <th>Razon de cancelado</th>
+                                            <th>Municipio</th>
                                             <th>Departamento</th>
                                             <th>Acciones</th>
                                         </tr>
@@ -126,6 +130,7 @@
                                             <td class="costo"><%= elem.getValorProy()%></td>
                                             <td class="estado"><%= elem.getEstado()%></td>
                                             <td class="rCancel"><%= motivo%></td>
+                                            <td class="muni"><%= elem.getMuni()%></td>
                                             <td class="depto"><%= elem.getDepto()%></td>
                                             <td class="">
                                                 <button type="button" class="btn btn-dark btnEditar" data-toggle="modal" data-target="#exampleModal">Editar</button>
@@ -193,17 +198,17 @@
                                     </select>
                                 </div>
                                 <div class="col-6">
-                                    <label>Departamento</label><br>
-                                    <select name="txtDepto" id="txtDepto" class="form-control" required>
-                                        <option value="0">Seleccionar proyecto...</option>
+                                    <label>Municipio</label><br>
+                                    <select name="txtMuni" id="txtMuni" class="form-control" required>
+                                        <option value="0">Seleccionar municipio...</option>
                                         <%
-                                            DepartamentoDAO ddao = new DepartamentoDAO();
+                                            MunicipioDAO mdao = new MunicipioDAO();
 
-                                            ArrayList<Departamento> lD = ddao.mostrarDeptos();
+                                            ArrayList<Municipio> lD = mdao.mostrarMunicipios();
 
-                                            for (Departamento elem : lD) {
+                                            for (Municipio elem : lD) {
                                         %>
-                                        <option value="<%= elem.getIdDepto()%>"><%= elem.getNombreDepto()%></option>
+                                        <option value="<%= elem.getIdMun()%>"><%= elem.getNombreMun()%></option>
                                         <%}%>
                                     </select>
                                 </div>

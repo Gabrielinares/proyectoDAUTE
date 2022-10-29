@@ -21,12 +21,12 @@ public class ProyectoDAO extends Conexion {
         int res = 0;
         try {
             this.conectar();
-            String sql = "INSERT INTO proyecto(nombreProyecto, costoProyecto, estadoProyecto, deptoId) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO proyecto(nombreProyecto, costoProyecto, estadoProyecto, munId) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = this.getCon().prepareStatement(sql);
             ps.setString(1, p.getNombreProy());
             ps.setDouble(2, p.getValorProy());
             ps.setString(3, p.getEstado());
-            ps.setInt(4, p.getDeptoId());
+            ps.setInt(4, p.getMunId());
 
             res = ps.executeUpdate();
         } catch (SQLException e) {
@@ -41,13 +41,13 @@ public class ProyectoDAO extends Conexion {
         int res = 0;
         try {
             this.conectar();
-            String sql = "UPDATE proyecto SET nombreProyecto = ?, costoProyecto = ?, estadoProyecto = ?, motivoCancelacion = ?, deptoId = ? WHERE idProyecto = ?";
+            String sql = "UPDATE proyecto SET nombreProyecto = ?, costoProyecto = ?, estadoProyecto = ?, motivoCancelacion = ?, munId = ? WHERE idProyecto = ?";
             PreparedStatement ps = this.getCon().prepareStatement(sql);
             ps.setString(1, p.getNombreProy());
             ps.setDouble(2, p.getValorProy());
             ps.setString(3, p.getEstado());
             ps.setString(4, p.getMotivoCancel());
-            ps.setInt(5, p.getDeptoId());
+            ps.setInt(5, p.getMunId());
             ps.setInt(6, p.getIdProy());
 
             res = ps.executeUpdate();
@@ -63,7 +63,7 @@ public class ProyectoDAO extends Conexion {
         ArrayList<Proyecto> lista = new ArrayList<>();
         try {
             this.conectar();
-            String sql = "SELECT p.idProyecto, p.nombreProyecto, p.costoProyecto, p.estadoProyecto, p.motivoCancelacion, d.nombreDepto, p.deptoId FROM proyecto AS p INNER JOIN departamento AS d ON (p.deptoId = d.idDepto)";
+            String sql = "SELECT p.idProyecto, p.nombreProyecto, p.costoProyecto, p.estadoProyecto, p.motivoCancelacion, m.idMunicipio, m.nombreMun, d.nombreDepto FROM proyecto AS p INNER JOIN municipio AS m ON (p.munId = m.idMunicipio) INNER JOIN departamento AS d ON (m.deptoId = d.idDepto);";
             PreparedStatement ps = this.getCon().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
@@ -74,8 +74,10 @@ public class ProyectoDAO extends Conexion {
                 p.setValorProy(rs.getDouble(3));
                 p.setEstado(rs.getString(4));
                 p.setMotivoCancel(rs.getString(5));
-                p.setDepto(rs.getString(6));
-                p.setDeptoId(rs.getInt(7));
+                p.setMunId(rs.getInt(6));
+                p.setMuni(rs.getString(7));
+                p.setDepto(rs.getString(8));
+                
                 lista.add(p);
             }
         } catch (SQLException e) {
