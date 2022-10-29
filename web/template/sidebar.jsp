@@ -15,14 +15,13 @@
             <h6 class="dropdown-header">Gestionar:</h6>
             <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/usuarios.jsp">Usuarios</a>
             <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/maquinaria.jsp">Maquinaria</a>
-            <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/detallemaquinaria.jsp">Maquinaria asignada</a>
-
             <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/empleado.jsp#">Empleado</a>
-            <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/detalleempleado.jsp">Detalle Empleado</a>
-
-            <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/proyecto.jsp">Proyectos</a>
             <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/departamento.jsp">Departamentos</a>
             <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/municipio.jsp">Municipios</a>
+            <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/proyecto.jsp">Proyectos</a>
+            <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/detallemaquinaria.jsp">Maquinaria asignada</a>
+            <a class="dropdown-item" href="${pageContext.servletContext.contextPath}/vistas/detalleempleado.jsp">Detalle Empleado</a>
+            
         </div>
     </li>
     <li class="nav-item dropdown">

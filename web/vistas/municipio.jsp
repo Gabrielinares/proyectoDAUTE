@@ -4,11 +4,11 @@
     Author     : gabriel
 --%>
 
+<%@page import="com.modelo.Municipio"%>
+<%@page import="com.dao.MunicipioDAO"%>
 <%@page import="com.modelo.Departamento"%>
 <%@page import="com.dao.DepartamentoDAO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.modelo.Municipio"%>
-<%@page import="com.dao.MunicipioDAO"%>
 <%@page import="java.util.List"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -45,8 +45,9 @@
 
     <body id="page-top">
 
-        <%            MunicipioDAO mdao = new MunicipioDAO();
+        <%
             DepartamentoDAO ddao = new DepartamentoDAO();
+            MunicipioDAO mdao = new MunicipioDAO();
         %>
 
         <%@include file="../template/navbar.jsp" %>
@@ -63,14 +64,14 @@
                     <!-- Breadcrumbs-->
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="#">Municipios</a>
+                            <a href="#">Departamentos</a>
                         </li>
                         <li class="breadcrumb-item active">Overview</li>
                     </ol>
 
                     <div class="row">
                         <div class="col-lg-8">
-                            <h1>Gesti&oacute;n de municipios</h1>
+                            <h1>Gesti&oacute;n de departamentos</h1>
                         </div>
                         <div class="col-lg-4">
                             <button type="button" class="btn btn-success float-right btnAdd" data-toggle="modal" data-target="#exampleModal">Agregar</button>
@@ -92,22 +93,21 @@
                                         <tr>
                                             <th>C&oacute;digo</th>
                                             <th>Nombre</th>
-                                            <th>Depto</th>
+                                            <th>Departamento</th>
                                             <th>Acciones</th>
-
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>C&oacute;digo</th>
                                             <th>Nombre</th>
-                                            <th>Depto</th>
+                                            <th>Departamento</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </tfoot>
                                     <tbody id="construirTabla">
-                                        <%ArrayList<Municipio> 
-                                            lista = mdao.mostrarMunicipios();
+                                        <%
+                                            ArrayList<Municipio> lista = mdao.mostrarMunicipios();
 
                                             for (Municipio elem : lista) {
 
@@ -115,7 +115,6 @@
                                         <tr>
                                             <td class="codigo"><%= elem.getIdMun()%></td>
                                             <td class="nombre"><%= elem.getNombreMun()%></td>
-                                            <td hidden class="deptoId"><%= elem.getDeptoId()%></td>
                                             <td class="depto"><%= elem.getDepto()%></td>
                                             <td>
                                                 <button type="button" class="btn btn-dark btnEditar" data-toggle="modal" data-target="#exampleModal">Editar</button>
@@ -168,7 +167,8 @@
                                 <div class="col-6">
                                     <label>Departamento</label>
                                     <br>
-                                    <select name="txtDepto" id="txtDepto" required>
+                                    <select name="txtDepto" id="txtDepto" required class="form-control">
+                                        <option value="0"> Seleccione... </option>
                                         <%
                                             ArrayList<Departamento> lD = ddao.mostrarDeptos();
                                             

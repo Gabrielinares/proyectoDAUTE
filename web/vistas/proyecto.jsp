@@ -185,7 +185,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label>Estado</label><br>
-                                    <select name="txtEstado" id="txtEstado" class="form-select" required>
+                                    <select name="txtEstado" id="txtEstado" class="form-control" required>
                                         <option value="0">Seleccionar estado...</option>
                                         <option value="Ingresado"> Ingresado </option>
                                         <option value="Confirmado"> Confirmado </option>
@@ -194,7 +194,7 @@
                                 </div>
                                 <div class="col-6">
                                     <label>Departamento</label><br>
-                                    <select name="txtDepto" id="txtDepto" class="form-select" required>
+                                    <select name="txtDepto" id="txtDepto" class="form-control" required>
                                         <option value="0">Seleccionar proyecto...</option>
                                         <%
                                             DepartamentoDAO ddao = new DepartamentoDAO();
