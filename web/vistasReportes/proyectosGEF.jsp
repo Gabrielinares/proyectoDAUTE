@@ -116,7 +116,7 @@
             if (request.getParameter("btnGenerar") != null) {
                 Conexion con = new Conexion();
                 con.conectar();
-                File reportFile = new File(application.getRealPath("reportes/proyectoERF.jasper"));
+                File reportFile = new File(application.getRealPath("reportes/proyectoGananciaEF.jasper"));
                 Map parametros = new HashMap();
 
                 String f1S = request.getParameter("txtFecha1");
