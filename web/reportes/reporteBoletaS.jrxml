@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="027eda10-28f9-4b82-b934-200237db6374">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c4de496c-70e3-4b57-89a3-660b6a1b9402">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -8,7 +8,7 @@
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="Arial" fontSize="12"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT e.dui AS DUI, e.nombreEmpleado AS Nombre, e.apellidoEmpleado AS Apellido, e.disponible AS Disponibilidad, (e.salario - (e.salario * 0.1) - (e.salario * 0.0625)) AS Salario, (e.salario * 0.1) AS Renta , (e.salario * 0.0625) AS AFP, e.telefono AS Telefono FROM empleado AS e;]]>
+		<![CDATA[SELECT e.dui AS DUI, e.nombreEmpleado AS Nombre, e.apellidoEmpleado AS Apellido, e.disponible AS Disponibilidad, e.salario AS Salario, (e.salario * 0.1) AS Renta , (e.salario * 0.0625) AS AFP, (e.salario - (e.salario * 0.1) - (e.salario * 0.0625)) AS SalarioNeto, e.telefono AS Telefono FROM empleado AS e;]]>
 	</queryString>
 	<field name="DUI" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -21,6 +21,7 @@
 	</field>
 	<field name="Renta" class="java.lang.Double"/>
 	<field name="AFP" class="java.lang.Double"/>
+	<field name="SalarioNeto" class="java.lang.Double"/>
 	<field name="Telefono" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -30,12 +31,12 @@
 	<title>
 		<band height="70" splitType="Stretch">
 			<staticText>
-				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="b59c0e70-b518-429d-a170-dca7feaed678"/>
+				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="e780b72b-72a3-4857-b93d-4f774d7c1db3"/>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Boleta de pagos]]></text>
+				<text><![CDATA[Reporte de boletas]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="SubTitle" x="100" y="46" width="221" height="22" uuid="44474ae0-8fe1-45d1-96e3-90813f922d37"/>
+				<reportElement style="SubTitle" x="100" y="46" width="221" height="22" uuid="1edb55f4-f5cb-409a-9d5a-8c9c69c4ffa0"/>
 				<text><![CDATA[Con descuentos aplicados]]></text>
 			</staticText>
 		</band>
@@ -46,48 +47,53 @@
 	<columnHeader>
 		<band height="36" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="160d16b9-7c1c-40dd-a566-0b5e3b31c332"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="51aa72ac-ca30-4477-a757-4d087088220c"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement style="Column header" x="0" y="19" width="69" height="15" uuid="1873c0df-c837-4829-92b0-baa56b8a31b1"/>
+				<reportElement style="Column header" x="0" y="19" width="61" height="15" uuid="bdebd04a-43d4-4499-b564-0a983306a7f9"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[DUI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="69" y="19" width="69" height="15" uuid="b8e33369-98f1-4876-9be4-da00a4d08c64"/>
+				<reportElement style="Column header" x="61" y="19" width="61" height="15" uuid="6c4ad5ac-e8dc-48df-a00e-c8593165698d"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="138" y="19" width="69" height="15" uuid="9e1883ed-fe81-4c45-82d5-1284be25464c"/>
+				<reportElement style="Column header" x="122" y="19" width="61" height="15" uuid="95400ce6-726f-4e55-b2e2-91b2651c01be"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Apellido]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="207" y="19" width="69" height="15" uuid="01d5c78a-6d00-40f8-a463-017f5df77bf5"/>
+				<reportElement style="Column header" x="183" y="19" width="80" height="15" uuid="81a6de8c-8e00-4c14-bbd4-6028bcc77d42"/>
 				<textElement textAlignment="Center"/>
-				<text><![CDATA[Disponibilidad]]></text>
+				<text><![CDATA[Disponible]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="276" y="19" width="69" height="15" uuid="f9a83b50-69f7-4c89-a37d-b7e44730f201"/>
+				<reportElement style="Column header" x="263" y="19" width="42" height="15" uuid="95d8f6b8-3beb-402d-a476-dd07d6bc3272"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Salario]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="345" y="19" width="69" height="15" uuid="62a31bd7-5020-4929-8ee0-361e77c1d049"/>
+				<reportElement style="Column header" x="305" y="19" width="61" height="15" uuid="a3d39d15-8105-43e2-bf3b-3265e8fcbebb"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Renta]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="414" y="19" width="69" height="15" uuid="46d268cc-19a0-4ac2-a98b-6d80a040fb1c"/>
+				<reportElement style="Column header" x="366" y="19" width="61" height="15" uuid="483451e5-908a-4ba5-9303-16e8bbc7cc80"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[AFP]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="483" y="19" width="69" height="15" uuid="10055b89-736a-4f42-90ba-fd8736762bf2"/>
+				<reportElement style="Column header" x="427" y="19" width="72" height="15" uuid="7c07ecaa-6132-4242-9454-0b0fb2531d46"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[SalarioNeto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="499" y="19" width="50" height="15" uuid="40eb9bee-78e0-4f4a-8900-aaf8d8326f70"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Telefono]]></text>
 			</staticText>
@@ -96,48 +102,53 @@
 	<detail>
 		<band height="16" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="0b3fddaa-2974-46de-a2bc-33be77054ccd"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="cc0fa8e9-b816-46dd-95a4-52705851a305"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement style="Detail" x="0" y="0" width="69" height="15" uuid="7bb0faff-7f19-493d-b585-d16a2321b083"/>
+				<reportElement style="Detail" x="0" y="0" width="61" height="15" uuid="c890b207-8720-47f1-8fd2-198d18edd7a1"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{DUI}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="69" y="0" width="69" height="15" uuid="12183a8e-b808-4fa4-9ef5-b21ca0ec4514"/>
+				<reportElement style="Detail" x="61" y="0" width="61" height="15" uuid="7776654a-2bd3-4916-8c10-f590202783ae"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="138" y="0" width="69" height="15" uuid="1f69aa73-06ff-4a57-8925-854da1bf7dc8"/>
+				<reportElement style="Detail" x="122" y="0" width="61" height="15" uuid="bd46b8b2-ee7d-44b8-8a8e-8a066c821a92"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{Apellido}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="207" y="0" width="69" height="15" uuid="3b323df6-92fa-4cdb-bd35-30c44b38ed26"/>
+				<reportElement style="Detail" x="183" y="0" width="61" height="15" uuid="29cab4eb-ef82-4c97-a89d-0c238e906231"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{Disponibilidad}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="276" y="0" width="69" height="15" uuid="eb73efb7-49ec-4a4a-8d3b-279d74f168f2"/>
+				<reportElement style="Detail" x="244" y="0" width="61" height="15" uuid="c6de59aa-837b-4e94-93b2-a3c782ed0e18"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{Salario}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="345" y="0" width="69" height="15" uuid="2a0fbf83-b729-4223-b113-581210a67ecf"/>
+				<reportElement style="Detail" x="305" y="0" width="61" height="15" uuid="899ac460-85c5-4a49-931d-1fcd657829e2"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{Renta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="414" y="0" width="69" height="15" uuid="23ec4429-9bcb-48aa-b98a-5f971a051fe9"/>
+				<reportElement style="Detail" x="366" y="0" width="61" height="15" uuid="3d2890d7-78de-4178-89ca-623cc8dfa3fe"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{AFP}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="483" y="0" width="69" height="15" uuid="18317936-b62d-4772-8ef3-5298f7b71136"/>
+				<reportElement style="Detail" x="427" y="0" width="61" height="15" uuid="bb5863ce-8235-4ff7-be53-e01feae0f489"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{SalarioNeto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="488" y="0" width="61" height="15" uuid="81df02d6-35f1-48c8-863b-39c4a50ae9d5"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{Telefono}]]></textFieldExpression>
 			</textField>
@@ -146,7 +157,7 @@
 	<columnFooter>
 		<band height="45" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="ce6f4bec-e7ea-48e3-9955-88adfebef9ae"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="6d83954d-68e0-4b2f-bd0d-ccc2b5d8c5dd"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
@@ -156,21 +167,21 @@
 	<pageFooter>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="d88a0087-f5c9-4f1f-bf3a-7462e7f274b8"/>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="3ba8d3fc-8c70-4deb-aef8-080e392353eb"/>
 				<textElement textAlignment="Right">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="db5ee1c3-42a8-47cc-8eda-22a0e0e2037c"/>
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="fb6b8163-93eb-4357-ab59-87796febcd2c"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="644e25f0-62db-4ded-9ae7-20fc68ff844f"/>
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="40d9891e-18b2-462d-8f1a-e15b9862cd1b"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
